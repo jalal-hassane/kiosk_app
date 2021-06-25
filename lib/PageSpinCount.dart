@@ -65,125 +65,135 @@ class _SpinCountPage extends State<PageSpinCount> {
               Center(
                 child: Container(
                   margin: EdgeInsets.only(top: screenHeight * 0.03),
+                  width: screenWidth * 0.92,
                   child: Column(
+                    mainAxisSize: MainAxisSize.max,
                     children: [
                       Container(
-                        color: Colors.transparent,
                         height: 35,
-                        width: screenWidth * 0.92,
                         child: TopLayout(
                           helpIsVisible: false,
                           questionMarkIsVisible: false,
                         ),
                       ),
-                      Column(
-                        children: [
-                          Container(
-                            width: screenWidth * 0.5,
-                            child: AspectRatio(
-                              aspectRatio: 1 / 1,
-                              child: Stack(
-                                children: [
-                                  Container(
-                                    child: SvgPicture.asset(
-                                      MyAssets.spinCountBackground,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                  Center(
+                      Flexible(
+                        flex: 1,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Column(
+                              children: [
+                                Container(
+                                  width: screenWidth * 0.5,
+                                  child: AspectRatio(
+                                    aspectRatio: 1 / 1,
                                     child: Stack(
-                                      alignment: Alignment.bottomCenter,
                                       children: [
                                         Container(
-                                          margin: EdgeInsets.only(bottom: 8),
-                                          child: AutoSizeText(
-                                            "2",
-                                            minFontSize: 30,
-                                            maxFontSize: 105,
-                                            maxLines: 1,
-                                            style: TextStyle(
-                                              fontSize: 105,
-                                              color: Colors.white,
-                                              fontFamily: Fonts.exo2Black,
-                                              height: 1,
-                                            ),
+                                          child: SvgPicture.asset(
+                                            MyAssets.spinCountBackground,
+                                            fit: BoxFit.cover,
                                           ),
                                         ),
-                                        AutoSizeText(
-                                          "spins",
-                                          maxLines: 1,
-                                          maxFontSize: 19,
-                                          minFontSize: 12,
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontFamily: Fonts.exo2ExtraBold,
-                                            fontSize: 19,
+                                        Center(
+                                          child: Stack(
+                                            alignment: Alignment.bottomCenter,
+                                            children: [
+                                              Container(
+                                                margin:
+                                                    EdgeInsets.only(bottom: 8),
+                                                child: AutoSizeText(
+                                                  "2",
+                                                  minFontSize: 30,
+                                                  maxFontSize: 105,
+                                                  maxLines: 1,
+                                                  style: TextStyle(
+                                                    fontSize: 105,
+                                                    color: Colors.white,
+                                                    fontFamily: Fonts.exo2Black,
+                                                    height: 1,
+                                                  ),
+                                                ),
+                                              ),
+                                              AutoSizeText(
+                                                "spins",
+                                                maxLines: 1,
+                                                maxFontSize: 19,
+                                                minFontSize: 12,
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontFamily:
+                                                      Fonts.exo2ExtraBold,
+                                                  fontSize: 19,
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ),
                                       ],
                                     ),
                                   ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(top: 16),
-                            child: Align(
-                              alignment: Alignment.center,
-                              child: Text(
-                                sprintf(Strings.spinCountHint, ["2"]),
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontFamily: Fonts.exo2Black,
-                                  fontSize: 16,
-                                  color: AppColors.orange,
                                 ),
-                              ),
-                            ),
-                          ),
-                          Column(
-                            children: [
-                              Center(
-                                child: GestureDetector(
-                                  //onTap: () => {navigate()},
-                                  onTap: navigate,
-                                  child: ConstrainedBox(
-                                    constraints: BoxConstraints(
-                                      maxHeight: 57,
-                                    ),
-                                    child: Container(
-                                      child: CustomChild.goButton(
-                                        mWidth: screenWidth * 0.5,
-                                        mHeight: screenHeight * 0.115,
+                                Container(
+                                  margin: EdgeInsets.only(top: 16),
+                                  child: Align(
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      sprintf(Strings.spinCountHint, ["2"]),
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontFamily: Fonts.exo2Black,
+                                        fontSize: 16,
+                                        color: AppColors.orange,
                                       ),
                                     ),
                                   ),
                                 ),
-                              ),
-                              Center(
-                                child: GestureDetector(
-                                  //onTap: () => {navigate()},
-                                  onTap: () {
-                                    Navigator.pop(context);
-                                  },
-                                  child: ConstrainedBox(
-                                    constraints: BoxConstraints(
-                                      maxHeight: 52,
-                                    ),
-                                    child: Container(
-                                      margin: EdgeInsets.only(top: 12),
-                                      child: CustomChild.backButton(
-                                        mWidth: screenWidth * 0.4,
-                                        mHeight: screenHeight * 0.08,
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                Center(
+                                  child: GestureDetector(
+                                    //onTap: () => {navigate()},
+                                    onTap: navigate,
+                                    child: ConstrainedBox(
+                                      constraints: BoxConstraints(
+                                        maxHeight: 57,
+                                      ),
+                                      child: Container(
+                                        child: CustomChild.goButton(
+                                          mWidth: screenWidth * 0.5,
+                                          mHeight: screenHeight * 0.115,
+                                        ),
                                       ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
-                        ],
+                                Center(
+                                  child: GestureDetector(
+                                    //onTap: () => {navigate()},
+                                    onTap: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: ConstrainedBox(
+                                      constraints: BoxConstraints(
+                                        maxHeight: 52,
+                                      ),
+                                      child: Container(
+                                        margin: EdgeInsets.only(top: 12),
+                                        child: CustomChild.backButton(
+                                          mWidth: screenWidth * 0.4,
+                                          mHeight: screenHeight * 0.08,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
