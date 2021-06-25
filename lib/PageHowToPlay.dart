@@ -67,8 +67,9 @@ class _HowToPlayPage extends State<PageHowToPlay> {
                           child: Column(
                             children: [
                               Container(
-                                margin:
-                                    EdgeInsets.only(top: screenHeight * 0.03),
+                                margin: EdgeInsets.only(
+                                  top: screenHeight * 0.03,
+                                ),
                                 color: Colors.transparent,
                                 height: 35,
                                 width: screenWidth * 0.92,
@@ -85,6 +86,7 @@ class _HowToPlayPage extends State<PageHowToPlay> {
                                           fontFamily: Fonts.exo2Black,
                                           fontSize: 16,
                                           color: Colors.white,
+                                          height: 1,
                                         ),
                                       ),
                                     ),
@@ -95,96 +97,144 @@ class _HowToPlayPage extends State<PageHowToPlay> {
                                 child: Container(
                                   width: screenWidth * 0.92,
                                   height: screenHeight * 0.75,
-                                  color: Colors.white,
                                   child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Container(
                                         child: Column(
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceEvenly,
                                           children: [
-                                            Container(
-                                              margin: EdgeInsets.only(
-                                                  bottom: screenHeight * 0.05),
-                                              child: Stack(
-                                                children: [
-                                                  Container(
-                                                    width: screenWidth * 0.42,
-                                                    height: screenHeight * 0.2,
-                                                    child: Image.asset(
-                                                      MyAssets.screenshotOne,
-                                                    ),
-                                                  ),
-                                                  Positioned.fill(
-                                                    child: Container(
-                                                      width: screenWidth * 0.4,
+                                            Expanded(
+                                              flex: 1,
+                                              child: Container(
+                                                alignment: Alignment.center,
+                                                child: Stack(
+                                                  alignment:
+                                                      Alignment.bottomCenter,
+                                                  children: [
+                                                    Container(
+                                                      margin: EdgeInsets.only(
+                                                        bottom:
+                                                            screenHeight * 0.06,
+                                                      ),
+                                                      width: screenWidth * 0.42,
                                                       height:
-                                                          screenHeight * 0.12,
-                                                      child: Align(
-                                                        alignment: Alignment
-                                                            .bottomCenter,
-                                                        child: Stack(
-                                                          children: [
-                                                            Image.asset(
-                                                              MyAssets.imageOne,
-                                                              fit: BoxFit.fill,
-                                                            ),
-                                                            Center(
-                                                              child: CustomChild
-                                                                  .howToPlayText(
-                                                                      Strings
-                                                                          .enterInfoText,
-                                                                      width: screenWidth *
-                                                                          0.25),
-                                                            ),
-                                                          ],
-                                                        ),
+                                                          screenHeight * 0.2,
+                                                      child: Image.asset(
+                                                        MyAssets.screenshotOne,
                                                       ),
                                                     ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            Container(
-                                              margin: EdgeInsets.only(
-                                                  bottom: screenHeight * 0.1),
-                                              child: Stack(
-                                                children: [
-                                                  Container(
-                                                    width: screenWidth * 0.42,
-                                                    height: screenHeight * 0.2,
-                                                    child: Image.asset(
-                                                        MyAssets.screenshotTwo),
-                                                  ),
-                                                  Align(
-                                                    alignment:
-                                                        Alignment.bottomCenter,
-                                                    child: Container(
+                                                    Container(
+                                                      alignment: Alignment
+                                                          .bottomCenter,
                                                       width: screenWidth * 0.4,
                                                       height:
                                                           screenHeight * 0.12,
                                                       child: Stack(
+                                                        alignment:
+                                                            Alignment.center,
                                                         children: [
-                                                          Image.asset(
-                                                            MyAssets.imageTwo,
-                                                            fit: BoxFit.fill,
+                                                          Container(
+                                                            child: Image.asset(
+                                                              MyAssets.imageOne,
+                                                            ),
                                                           ),
-                                                          Center(
-                                                            child: CustomChild
-                                                                .howToPlayText(
+                                                          Wrap(
+                                                            children: [
+                                                              Container(
+                                                                margin:
+                                                                    EdgeInsets
+                                                                        .only(
+                                                                  bottom:
+                                                                      screenHeight *
+                                                                          0.035,
+                                                                ),
+                                                                child: Center(
+                                                                  child: CustomChild
+                                                                      .howToPlayText(
                                                                     Strings
-                                                                        .selectRaffleText,
+                                                                        .enterInfoText,
                                                                     width:
                                                                         screenWidth *
-                                                                            0.25),
+                                                                            0.25,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
                                                           ),
                                                         ],
                                                       ),
                                                     ),
-                                                  ),
-                                                ],
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                            Expanded(
+                                              flex: 1,
+                                              child: Container(
+                                                alignment: Alignment.topCenter,
+                                                child: Stack(
+                                                  alignment:
+                                                      Alignment.bottomCenter,
+                                                  children: [
+                                                    Container(
+                                                      margin: EdgeInsets.only(
+                                                        bottom:
+                                                            screenHeight * 0.06,
+                                                      ),
+                                                      width: screenWidth * 0.42,
+                                                      height:
+                                                          screenHeight * 0.2,
+                                                      child: Image.asset(
+                                                        MyAssets
+                                                            .screenshotThree,
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                      alignment: Alignment
+                                                          .bottomCenter,
+                                                      width: screenWidth * 0.4,
+                                                      height:
+                                                          screenHeight * 0.12,
+                                                      child: Stack(
+                                                        alignment:
+                                                            Alignment.center,
+                                                        children: [
+                                                          Container(
+                                                            child: Image.asset(
+                                                              MyAssets
+                                                                  .imageThree,
+                                                            ),
+                                                          ),
+                                                          Wrap(
+                                                            children: [
+                                                              Container(
+                                                                margin:
+                                                                    EdgeInsets
+                                                                        .only(
+                                                                  bottom:
+                                                                      screenHeight *
+                                                                          0.035,
+                                                                ),
+                                                                child: Center(
+                                                                  child: CustomChild
+                                                                      .howToPlayText(
+                                                                    Strings
+                                                                        .spinWheelText,
+                                                                    width:
+                                                                        screenWidth *
+                                                                            0.25,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
                                             ),
                                           ],
@@ -195,84 +245,133 @@ class _HowToPlayPage extends State<PageHowToPlay> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceEvenly,
                                           children: [
-                                            Container(
-                                              margin: EdgeInsets.only(
-                                                  top: screenHeight * 0.1),
-                                              child: Stack(
-                                                children: [
-                                                  Container(
-                                                    width: screenWidth * 0.42,
-                                                    height: screenHeight * 0.2,
-                                                    child: Image.asset(MyAssets
-                                                        .screenshotThree),
-                                                  ),
-                                                  Align(
-                                                    alignment:
-                                                        Alignment.bottomCenter,
-                                                    child: Container(
+                                            Expanded(
+                                              flex: 6,
+                                              child: Container(
+                                                child: Stack(
+                                                  alignment:
+                                                      Alignment.bottomCenter,
+                                                  children: [
+                                                    Container(
+                                                      margin: EdgeInsets.only(
+                                                        bottom:
+                                                            screenHeight * 0.06,
+                                                      ),
+                                                      width: screenWidth * 0.42,
+                                                      height:
+                                                          screenHeight * 0.2,
+                                                      child: Image.asset(
+                                                        MyAssets.screenshotTwo,
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                      alignment: Alignment
+                                                          .bottomCenter,
                                                       width: screenWidth * 0.4,
                                                       height:
                                                           screenHeight * 0.12,
                                                       child: Stack(
+                                                        alignment:
+                                                            Alignment.center,
                                                         children: [
-                                                          Image.asset(
-                                                            MyAssets.imageThree,
-                                                            fit: BoxFit.fill,
+                                                          Container(
+                                                            child: Image.asset(
+                                                              MyAssets.imageTwo,
+                                                            ),
                                                           ),
-                                                          Center(
-                                                            child: CustomChild
-                                                                .howToPlayText(
+                                                          Wrap(
+                                                            children: [
+                                                              Container(
+                                                                margin:
+                                                                    EdgeInsets
+                                                                        .only(
+                                                                  bottom:
+                                                                      screenHeight *
+                                                                          0.035,
+                                                                  left: 16,
+                                                                ),
+                                                                child: Center(
+                                                                  child: CustomChild
+                                                                      .howToPlayText(
                                                                     Strings
-                                                                        .spinWheelText,
+                                                                        .selectRaffleText,
                                                                     width:
                                                                         screenWidth *
-                                                                            0.25),
+                                                                            0.25,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
                                                           ),
                                                         ],
                                                       ),
                                                     ),
-                                                  ),
-                                                ],
+                                                  ],
+                                                ),
                                               ),
                                             ),
-                                            Container(
-                                              margin: EdgeInsets.only(
-                                                  top: screenHeight * 0.05),
-                                              child: Stack(
-                                                children: [
-                                                  Container(
-                                                    width: screenWidth * 0.42,
-                                                    height: screenHeight * 0.2,
-                                                    child: Image.asset(MyAssets
-                                                        .screenshotFour),
-                                                  ),
-                                                  Align(
-                                                    alignment:
-                                                        Alignment.bottomCenter,
-                                                    child: Container(
+                                            Expanded(
+                                              flex: 4,
+                                              child: Container(
+                                                child: Stack(
+                                                  alignment:
+                                                      Alignment.bottomCenter,
+                                                  children: [
+                                                    Container(
+                                                      margin: EdgeInsets.only(
+                                                          bottom: screenHeight *
+                                                              0.06),
+                                                      width: screenWidth * 0.42,
+                                                      height:
+                                                          screenHeight * 0.2,
+                                                      child: Image.asset(
+                                                        MyAssets.screenshotFour,
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                      alignment: Alignment
+                                                          .bottomCenter,
                                                       width: screenWidth * 0.4,
                                                       height:
                                                           screenHeight * 0.12,
                                                       child: Stack(
+                                                        alignment:
+                                                            Alignment.center,
                                                         children: [
-                                                          Image.asset(
-                                                            MyAssets.imageFour,
-                                                            fit: BoxFit.fill,
+                                                          Container(
+                                                            child: Image.asset(
+                                                              MyAssets
+                                                                  .imageFour,
+                                                            ),
                                                           ),
-                                                          Center(
-                                                            child: CustomChild
-                                                                .howToPlayText(
+                                                          Wrap(
+                                                            children: [
+                                                              Container(
+                                                                margin:
+                                                                    EdgeInsets
+                                                                        .only(
+                                                                  bottom:
+                                                                      screenHeight *
+                                                                          0.035,
+                                                                ),
+                                                                child: Center(
+                                                                  child: CustomChild
+                                                                      .howToPlayText(
                                                                     Strings
                                                                         .claimPrizeText,
                                                                     width:
                                                                         screenWidth *
-                                                                            0.25),
+                                                                            0.25,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
                                                           ),
                                                         ],
                                                       ),
                                                     ),
-                                                  ),
-                                                ],
+                                                  ],
+                                                ),
                                               ),
                                             ),
                                           ],
@@ -280,182 +379,11 @@ class _HowToPlayPage extends State<PageHowToPlay> {
                                       ),
                                     ],
                                   ),
-                                  /*child: Column(
-                                    children: [
-                                      Container(
-                                        height: screenHeight * 0.28,
-                                        child: Center(
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Stack(
-                                                children: [
-                                                  Container(
-                                                    width: screenWidth * 0.42,
-                                                    height: screenHeight * 0.2,
-                                                    child: Image.asset(
-                                                        MyAssets.screenshotOne),
-                                                  ),
-                                                  Align(
-                                                    alignment:
-                                                        Alignment.bottomCenter,
-                                                    child: Container(
-                                                      width: screenWidth * 0.4,
-                                                      height:
-                                                          screenHeight * 0.12,
-                                                      child: Stack(
-                                                        children: [
-                                                          Image.asset(
-                                                            MyAssets.imageOne,
-                                                            fit: BoxFit.fill,
-                                                          ),
-                                                          Center(
-                                                            child: CustomChild
-                                                                .howToPlayText(
-                                                                    Strings
-                                                                        .enterInfoText,
-                                                                    width:
-                                                                        screenWidth *
-                                                                            0.25),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              Stack(
-                                                children: [
-                                                  Container(
-                                                    margin: EdgeInsets.only(
-                                                        top:
-                                                            screenHeight * 0.1),
-                                                    width: screenWidth * 0.42,
-                                                    height: screenHeight * 0.2,
-                                                    child: Image.asset(
-                                                        MyAssets.screenshotTwo),
-                                                  ),
-                                                  Align(
-                                                    alignment:
-                                                        Alignment.bottomCenter,
-                                                    child: Container(
-                                                      width: screenWidth * 0.4,
-                                                      height:
-                                                          screenHeight * 0.12,
-                                                      child: Stack(
-                                                        children: [
-                                                          Image.asset(
-                                                            MyAssets.imageTwo,
-                                                            fit: BoxFit.fill,
-                                                          ),
-                                                          Center(
-                                                            child: CustomChild
-                                                                .howToPlayText(
-                                                                    Strings
-                                                                        .selectRaffleText,
-                                                                    width:
-                                                                        screenWidth *
-                                                                            0.25),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      Container(
-                                        height: screenHeight * 0.28,
-                                        child: Center(
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Stack(
-                                                children: [
-                                                  Container(
-                                                    width: screenWidth * 0.42,
-                                                    height: screenHeight * 0.2,
-                                                    child: Image.asset(MyAssets
-                                                        .screenshotThree),
-                                                  ),
-                                                  Align(
-                                                    alignment:
-                                                        Alignment.bottomCenter,
-                                                    child: Container(
-                                                      width: screenWidth * 0.4,
-                                                      height:
-                                                          screenHeight * 0.12,
-                                                      child: Stack(
-                                                        children: [
-                                                          Image.asset(
-                                                            MyAssets.imageThree,
-                                                            fit: BoxFit.fill,
-                                                          ),
-                                                          Center(
-                                                            child: CustomChild
-                                                                .howToPlayText(
-                                                                    Strings
-                                                                        .spinWheelText,
-                                                                    width:
-                                                                        screenWidth *
-                                                                            0.25),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              Stack(
-                                                children: [
-                                                  Container(
-                                                    width: screenWidth * 0.42,
-                                                    height: screenHeight * 0.2,
-                                                    child: Image.asset(MyAssets
-                                                        .screenshotFour),
-                                                  ),
-                                                  Align(
-                                                    alignment:
-                                                        Alignment.bottomCenter,
-                                                    child: Container(
-                                                      width: screenWidth * 0.4,
-                                                      height:
-                                                          screenHeight * 0.12,
-                                                      child: Stack(
-                                                        children: [
-                                                          Image.asset(
-                                                            MyAssets.imageFour,
-                                                            fit: BoxFit.fill,
-                                                          ),
-                                                          Center(
-                                                            child: CustomChild
-                                                                .howToPlayText(
-                                                                    Strings
-                                                                        .claimPrizeText,
-                                                                    width:
-                                                                        screenWidth *
-                                                                            0.25),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),*/
                                 ),
                               ),
-                              Center(
+                              Container(
+                                height: screenHeight * 0.1,
+                                alignment: Alignment.bottomCenter,
                                 child: GestureDetector(
                                   //onTap: () => {navigate()},
                                   onTap: navigate,
@@ -463,11 +391,9 @@ class _HowToPlayPage extends State<PageHowToPlay> {
                                     constraints: const BoxConstraints(
                                       maxHeight: 57,
                                     ),
-                                    child: Container(
-                                      child: CustomChild.goButton(
-                                        mWidth: screenWidth * 0.6,
-                                        mHeight: screenHeight * 0.115,
-                                      ),
+                                    child: CustomChild.goButton(
+                                      mWidth: screenWidth * 0.6,
+                                      mHeight: screenHeight * 0.115, //not needed since maxHeight is set
                                     ),
                                   ),
                                 ),
