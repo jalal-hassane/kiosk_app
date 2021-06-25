@@ -1,0 +1,15 @@
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 950 103"
+    id="im_triangle_top">
+    <path
+        id="path_1"
+        d="M 941 10.28 L 941 103.25 L 64.44 10.28 L 941 10.28 Z"
+        fill="#ffff34"
+        fill-opacity="0.4"
+        stroke-opacity="0.4"/>
+    <path
+        id="path_3"
+        d="M 950 0.35 L 950 73.77 L 0 0 L 950 0.35 Z"
+        fill="#ffff34"/>
+</svg>

@@ -28,6 +28,11 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+  flutter_svg: ^0.22.0
+  shimmer: ^2.0.0
+  device_preview: ^0.7.3
+  auto_size_text: ^3.0.0-nullsafety.0
+  sprintf: ^6.0.0
 
 dev_dependencies:
   flutter_test:
@@ -38,6 +43,27 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
+  assets:
+    - assets/images/
+  fonts:
+    - family: Exo2Regular
+      fonts:
+        - asset: assets/font/exo2_regular.ttf
+    - family: Exo2Black
+      fonts:
+        - asset: assets/font/exo2_black.ttf
+    - family: Exo2Bold
+      fonts:
+        - asset: assets/font/exo2_bold.ttf
+    - family: Exo2ExtraBold
+      fonts:
+        - asset: assets/font/exo2_extra_bold.ttf
+    - family: Exo2Medium
+      fonts:
+        - asset: assets/font/exo2_medium.ttf
+    - family: Exo2SemiBold
+      fonts:
+        - asset: assets/font/exo2_semibold.ttf
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

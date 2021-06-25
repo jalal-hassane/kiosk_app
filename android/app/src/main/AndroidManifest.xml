@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.jalalflutter.kiosk_app">
    <application
-        android:label="kiosk_app"
+        android:label="kiosk app"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
