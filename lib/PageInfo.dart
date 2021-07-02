@@ -8,6 +8,7 @@ import 'package:kiosk_app/MyColors.dart';
 import 'package:kiosk_app/MyCustomChild.dart';
 import 'package:kiosk_app/MyDecorations.dart';
 import 'package:kiosk_app/MyFonts.dart';
+import 'package:sprintf/sprintf.dart';
 
 import 'MyStrings.dart';
 import 'PageHowToPlay.dart';
@@ -21,6 +22,11 @@ class PageInfo extends StatefulWidget {
 }
 
 class _InfoPage extends State<PageInfo> {
+  final fullNameFieldController = TextEditingController();
+  final mobilePhoneFieldController = TextEditingController();
+  final emailAddressFieldController = TextEditingController();
+  String nameError = "",mobileError = "",emailError = "";
+
   void navigate() {
     Navigator.push(
       context,
@@ -50,7 +56,7 @@ class _InfoPage extends State<PageInfo> {
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage(
-                    MyAssets.finalBackground,
+                    MyAssets.backgroundFinal,
                   ),
                   fit: BoxFit.fill,
                 ),
@@ -99,73 +105,55 @@ class _InfoPage extends State<PageInfo> {
                                   width: screenWidth * 0.9,
                                   alignment: Alignment.center,
                                   child: Wrap(
-                                    spacing: 10,
                                     children: [
                                       Container(
                                         child: Wrap(
                                           children: [
-                                            Expanded(
-                                              flex: 1,
-                                              child: Container(
-                                                child: Wrap(
-                                                  children: [
-                                                    CustomChild
-                                                        .topLeftAlignedText(
-                                                            Strings.fullName),
-                                                    Container(
-                                                      height: 45,
-                                                      decoration: Decorations
-                                                          .rounded8WhiteBackground,
-                                                      child: CustomChild
-                                                          .infoPageInputText,
-                                                    ),
-                                                  ],
+                                            Container(
+                                              margin: EdgeInsets.only(
+                                                bottom: 10,
+                                              ),
+                                              child: Expanded(
+                                                flex: 1,
+                                                child: infoTextFieldContainer(
+                                                  text: Strings.fullName,
+                                                  mController:
+                                                      fullNameFieldController,
+                                                  error: nameError,
+                                                ),
+                                              ),
+                                            ),
+                                            Container(
+                                              margin: EdgeInsets.only(
+                                                bottom: 10,
+                                              ),
+                                              child: Expanded(
+                                                flex: 1,
+                                                child: infoTextFieldContainer(
+                                                  text: Strings.mobileNumber,
+                                                  mController:
+                                                      mobilePhoneFieldController,
+                                                  type: TextInputType.number,
+                                                  error: mobileError,
                                                 ),
                                               ),
                                             ),
                                             Expanded(
                                               flex: 1,
-                                              child: Container(
-                                                child: Wrap(
-                                                  children: [
-                                                    CustomChild
-                                                        .topLeftAlignedText(
-                                                            Strings.mobileNumber),
-                                                    Container(
-                                                      height: 45,
-                                                      decoration: Decorations
-                                                          .rounded8WhiteBackground,
-                                                      child: CustomChild
-                                                          .infoPageInputText,
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                            Expanded(
-                                              flex: 1,
-                                              child: Container(
-                                                child: Wrap(
-                                                  children: [
-                                                    CustomChild
-                                                        .topLeftAlignedText(
-                                                            Strings.emailAddress),
-                                                    Container(
-                                                      height: 45,
-                                                      decoration: Decorations
-                                                          .rounded8WhiteBackground,
-                                                      child: CustomChild
-                                                          .infoPageInputText,
-                                                    ),
-                                                  ],
-                                                ),
+                                              child: infoTextFieldContainer(
+                                                text: Strings.emailAddress,
+                                                mController:
+                                                    emailAddressFieldController,
+                                                  type: TextInputType.emailAddress,
+                                                error: emailError,
                                               ),
                                             ),
                                           ],
                                         ),
                                       ),
                                       Container(
-                                        margin: EdgeInsets.only(top: 8, left: 4),
+                                        margin:
+                                            EdgeInsets.only(top: 8, left: 4),
                                         child: Text(
                                           Strings.mandatoryHint,
                                           style: TextStyle(
@@ -176,11 +164,13 @@ class _InfoPage extends State<PageInfo> {
                                         ),
                                       ),
                                       GestureDetector(
-                                        onTap: navigate,
-                                        child: CustomChild.goButton(
-                                            mWidth: screenWidth * 0.5,
-                                            mHeight: 55,
-                                            marginTop: 30),
+                                        onTap: checkForEmptyFields,
+                                        child: Center(
+                                          child: CustomChild.goButton(
+                                              mWidth: screenWidth * 0.5,
+                                              mHeight: 55,
+                                              marginTop: 30),
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -200,4 +190,83 @@ class _InfoPage extends State<PageInfo> {
       ),
     );
   }
+
+  Container infoTextFieldContainer(
+      {String text = '', TextEditingController? mController,TextInputType? type,String? error}) {
+    return Container(
+      child: Wrap(
+        children: [
+          CustomChild.topLeftAlignedText(text),
+          Container(
+            height: 45,
+            decoration: Decorations.rounded8WhiteBackground,
+            child: CustomChild.infoPageInputText(controller: mController,type: type,error: error),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showErrorDialog(ErrorType type,String e) {
+    String message = type==ErrorType.EMPTY? Strings.emptyErrorMessage:Strings.malformedErrorMessage;
+    showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          //title: const Text(title),
+          title: Text(Strings.emptyErrorTitle),
+          content: Text(sprintf(message,[e])),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+
+  void checkForEmptyFields() {
+    String name = fullNameFieldController.value.text;
+    String mobile = mobilePhoneFieldController.value.text;
+    String email = emailAddressFieldController.value.text;
+
+    setState(() {
+      if(name.isEmpty){
+        _showErrorDialog(ErrorType.EMPTY,"Full name");
+        nameError = Strings.emptyErrorMessage;
+        return;
+      }
+      if(mobile.isEmpty){
+        _showErrorDialog(ErrorType.EMPTY,"Mobile number");
+        mobileError = Strings.emptyErrorMessage;
+        return;
+      }
+      if(email.isNotEmpty&&!email.isValidEmail()){
+        _showErrorDialog(ErrorType.MALFORMED,"email");
+        emailError = Strings.malformedErrorMessage;
+        return;
+      }
+      navigate();
+    });
+
+
+
+  }
+
+}
+extension EmailValidator on String {
+  bool isValidEmail() {
+    return RegExp(
+        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
+        .hasMatch(this);
+  }
+}
+enum ErrorType{
+  EMPTY,
+  MALFORMED
 }

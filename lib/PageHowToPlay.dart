@@ -46,7 +46,7 @@ class _HowToPlayPage extends State<PageHowToPlay> {
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: AssetImage(
-                  MyAssets.finalBackground,
+                  MyAssets.backgroundFinal,
                 ),
                 fit: BoxFit.fill,
               ),

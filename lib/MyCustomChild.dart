@@ -10,24 +10,27 @@ import 'MyFonts.dart';
 import 'MyStyles.dart';
 
 class CustomChild {
-  static final infoPageInputText = TextField(
-    controller: null,
-    autofocus: false,
-    style: TextStyle(
-      fontFamily: Fonts.exo2Regular,
-      fontSize: 18,
-      color: AppColors.shinyYellow,
-      height: 1,
-    ),
-    decoration: InputDecoration(
-      border: InputBorder.none,
-      focusedBorder: InputBorder.none,
-      enabledBorder: InputBorder.none,
-      errorBorder: InputBorder.none,
-      disabledBorder: InputBorder.none,
-      contentPadding: EdgeInsets.all(16),
-    ),
-  );
+  static TextField infoPageInputText({TextEditingController? controller,TextInputType? type,String? error}) {
+    return TextField(
+      controller: controller,
+      keyboardType: type,
+      autofocus: false,
+      style: TextStyle(
+        fontFamily: Fonts.exo2Regular,
+        fontSize: 18,
+        color: AppColors.shinyYellow,
+        height: 1,
+      ),
+      decoration: InputDecoration(
+        border: InputBorder.none,
+        focusedBorder: InputBorder.none,
+        enabledBorder: InputBorder.none,
+        errorBorder:  InputBorder.none,
+        disabledBorder: InputBorder.none,
+        contentPadding: EdgeInsets.all(16),
+      ),
+    );
+  }
 
   static Align topLeftAlignedText(String text) {
     return Align(
@@ -40,6 +43,7 @@ class CustomChild {
   }
 
   static Center goButton({
+    String text = Strings.go,
     double mWidth = 0,
     double mHeight = 0,
     double marginTop = 0,
@@ -61,13 +65,14 @@ class CustomChild {
           children: [
             Container(
               child: SvgPicture.asset(
-                MyAssets.buttonGo,
+                MyAssets.backgroundGo,
                 fit: BoxFit.fill,
               ),
             ),
             Center(
               child: Text(
-                Strings.go,
+                text,
+                textAlign: TextAlign.center,
                 style: TextStyle(
                   fontFamily: Fonts.exo2Black,
                   fontSize: 20,
@@ -104,7 +109,7 @@ class CustomChild {
           children: [
             Container(
               child: SvgPicture.asset(
-                MyAssets.buttonBack,
+                MyAssets.backgroundBack,
                 fit: BoxFit.fill,
               ),
             ),

@@ -8,4 +8,12 @@ class AppColors {
 
   static const Color orange = Color.fromRGBO(251, 190, 0, 1);
   static const Color yellow = Color.fromRGBO(255, 209, 0, 1);
+  static const Color gray2 = Color(0xFFF4F4F4);
+  static const Color darkGray = Color(0xffe2e2e2);
+  static const Color spinnerBackground = Color(0xff2d2a26);
+  static const Color spinnerTipBackground = Color(0xff212121);
+  static const Color prizesRecyclerViewBackground = Color(0xff262626);
+  static const Color grayUnknown = Color(0xff494949);
+
+
 }

@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:device_preview/device_preview.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:kiosk_app/MyAssets.dart';
@@ -91,53 +92,82 @@ class _MyHomePageState extends State<PageHome> {
       backgroundColor: Colors.transparent,
       body: SafeArea(
         child: Container(
-          //margin: EdgeInsets.only(top: statusBarHeight),
-
-          // Center is a layout widget. It takes a single child and positions it
-          // in the middle of the parent.
-          child: Container(
-            width: double.infinity,
-            height: double.infinity,
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage(MyAssets.homeBackground),
-                    fit: BoxFit.fill)),
-            child: Column(
-              children: <Widget>[
-                Expanded(
-                  flex: 1,
-                  child: Container(
-                    width: double.infinity,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage(MyAssets.backgroundHome),
+              fit: BoxFit.fill,
+            ),
+          ),
+          child: Column(
+            children: <Widget>[
+              Flexible(
+                flex: 5,
+                child: Container(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(
+                        child: SvgPicture.asset(
+                          MyAssets.megaSvg,
+                          width: screenWidth * 0.8,
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                      Container(
+                        width: screenWidth * 0.8,
+                        height: screenHeight * 0.08,
+                        alignment: Alignment.center,
+                        child: Text(
+                          Strings.homeStartSpin,
+                          maxLines: 1,
+                          style: TextStyle(
+                            fontFamily: Fonts.exo2Black,
+                            color: Colors.white,
+                            fontSize: 14,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                Expanded(
-                  flex: 3,
+              ),
+              Flexible(
+                flex: 3,
+                child: GestureDetector(
+                  onTap: navigateTo,
                   child: Container(
                     width: double.infinity,
                     child: Column(
                       children: <Widget>[
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          mainAxisSize: MainAxisSize.max,
+                        Stack(
+                          //clipBehavior: Clip.hardEdge,
                           children: [
-                            SvgPicture.asset(
-                              MyAssets.megaSvg,
-                              width: screenWidth * 0.8,
+                            Image.asset(
+                              MyAssets.imagePlayWithShadow,
+                              width: screenWidth / 2.8,
                               fit: BoxFit.contain,
                             ),
+                            Shimmer.fromColors(
+                                child: Image.asset(
+                                  MyAssets.imagePlayWithShadow,
+                                  width: screenWidth / 2.8,
+                                  fit: BoxFit.contain,
+                                ),
+                                period: Duration(milliseconds: 1000),
+                                baseColor: AppColors.transparentWhite10,
+                                highlightColor: Colors.white),
                           ],
                         ),
                         Container(
                           width: screenWidth * 0.8,
-                          height: screenHeight * 0.08,
-                          alignment: Alignment.center,
                           child: Text(
-                            Strings.homeStartSpin,
-                            maxLines: 1,
+                            Strings.touchToStart,
+                            maxLines: 3,
                             style: TextStyle(
                               fontFamily: Fonts.exo2Black,
-                              color: Colors.white,
-                              fontSize: 14,
+                              color: AppColors.shinyYellow,
+                              fontSize: 16,
                             ),
                             textAlign: TextAlign.center,
                           ),
@@ -146,59 +176,8 @@ class _MyHomePageState extends State<PageHome> {
                     ),
                   ),
                 ),
-                Expanded(
-                  flex: 3,
-                  child: Container(
-                    width: double.infinity,
-                  ),
-                ),
-                Expanded(
-                  flex: 3,
-                  child: GestureDetector(
-                    onTap: navigateTo,
-                    child: Container(
-                      width: double.infinity,
-                      child: Column(
-                        children: <Widget>[
-                          Stack(
-                            clipBehavior: Clip.hardEdge,
-                            children: [
-                              Image.asset(
-                                MyAssets.imagePlayWithShadow,
-                                width: screenWidth / 2.8,
-                                fit: BoxFit.contain,
-                              ),
-                              Shimmer.fromColors(
-                                  child: Image.asset(
-                                    MyAssets.imagePlayWithShadow,
-                                    width: screenWidth / 2.8,
-                                    fit: BoxFit.contain,
-                                  ),
-                                  period: Duration(milliseconds: 1000),
-                                  baseColor: AppColors.transparentWhite10,
-                                  highlightColor: Colors.white),
-                            ],
-                          ),
-                          Container(
-                            width: screenWidth * 0.8,
-                            child: Text(
-                              Strings.touchToStart,
-                              maxLines: 3,
-                              style: TextStyle(
-                                fontFamily: Fonts.exo2Black,
-                                color: AppColors.shinyYellow,
-                                fontSize: 16,
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

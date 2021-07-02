@@ -7,8 +7,9 @@ class Strings {
   static const String fullName = "Full Name*";
   static const String mobileNumber = "Mobile Number*";
   static const String emailAddress = "Email Address";
-  static const String mandatoryHint = "*One of them is mandatory";
+  static const String mandatoryHint = "*Mandatory fields";
   static const String go = "GO";
+  static const String proceed = "PROCEED";
   static const String back = "Back";
 
   static const String followBelowSteps = "Follow the bellow steps";
@@ -18,4 +19,16 @@ class Strings {
   static const String claimPrizeText = "Claim your Prize";
 
   static const String spinCountHint = "You can spin the wheel %s times";
+
+  static const String raffleTitle = "Raffle draw list";
+  static const String availableCredits = "Your available credits";
+  static const String prizeTitle = "Prize title";
+  static const String drawDateAndTime = "Etc Mall\nin 2021/12/20";
+  static const String remainingSpins = "Remaining Spins";
+  static const String spinAgain = "Spin Again";
+
+  static const String emptyErrorTitle = "Empty Field";
+  static const String emptyErrorMessage = "%s is required";
+  static const String malformedErrorMessage = "The %s data you entered is malformed";
+
 }

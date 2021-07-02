@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:kiosk_app/MyAssets.dart';
-import 'package:kiosk_app/PageRaffles.dart';
+import 'package:kiosk_app/PageRaffle.dart';
 import 'package:sprintf/sprintf.dart';
 
 import 'LayoutTop.dart';
@@ -26,7 +26,7 @@ class _SpinCountPage extends State<PageSpinCount> {
   void navigate() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => PageRaffles(title: 'Raffles')),
+      MaterialPageRoute(builder: (context) => PageRaffle(title: 'Raffle')),
     );
   }
 
@@ -49,7 +49,7 @@ class _SpinCountPage extends State<PageSpinCount> {
           decoration: BoxDecoration(
             image: DecorationImage(
               image: AssetImage(
-                MyAssets.finalBackground,
+                MyAssets.backgroundFinal,
               ),
               fit: BoxFit.fill,
             ),
