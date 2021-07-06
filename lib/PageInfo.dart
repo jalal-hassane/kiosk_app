@@ -25,7 +25,12 @@ class _InfoPage extends State<PageInfo> {
   final fullNameFieldController = TextEditingController();
   final mobilePhoneFieldController = TextEditingController();
   final emailAddressFieldController = TextEditingController();
-  String nameError = "",mobileError = "",emailError = "";
+  String nameError = "", mobileError = "", emailError = "";
+
+  var screenHeight = 0.0; // device screen height
+  var screenWidth = 0.0; // device screen width
+  var statusBarHeight = 0.0;
+  late FocusScopeNode node;
 
   void navigate() {
     Navigator.push(
@@ -37,11 +42,10 @@ class _InfoPage extends State<PageInfo> {
 
   @override
   Widget build(BuildContext context) {
-    final screenHeight =
-        MediaQuery.of(context).size.height; // device screen height
-    final screenWidth =
-        MediaQuery.of(context).size.width; // device screen width
-    final statusBarHeight = MediaQuery.of(context).padding.top;
+    screenHeight = MediaQuery.of(context).size.height; // device screen height
+    screenWidth = MediaQuery.of(context).size.width; // device screen width
+    statusBarHeight = MediaQuery.of(context).padding.top;
+    node = FocusScope.of(context);
 
     return Scaffold(
       //resizeToAvoidBottomInset: false,
@@ -116,11 +120,13 @@ class _InfoPage extends State<PageInfo> {
                                               child: Expanded(
                                                 flex: 1,
                                                 child: infoTextFieldContainer(
-                                                  text: Strings.fullName,
-                                                  mController:
-                                                      fullNameFieldController,
-                                                  error: nameError,
-                                                ),
+                                                    text: Strings.fullName,
+                                                    mController:
+                                                        fullNameFieldController,
+                                                    error: nameError,
+                                                    function: () {
+                                                      node.nextFocus();
+                                                    }),
                                               ),
                                             ),
                                             Container(
@@ -130,23 +136,29 @@ class _InfoPage extends State<PageInfo> {
                                               child: Expanded(
                                                 flex: 1,
                                                 child: infoTextFieldContainer(
-                                                  text: Strings.mobileNumber,
-                                                  mController:
-                                                      mobilePhoneFieldController,
-                                                  type: TextInputType.number,
-                                                  error: mobileError,
-                                                ),
+                                                    text: Strings.mobileNumber,
+                                                    mController:
+                                                        mobilePhoneFieldController,
+                                                    type: TextInputType.number,
+                                                    error: mobileError,
+                                                    function: () {
+                                                      node.nextFocus();
+                                                    }),
                                               ),
                                             ),
                                             Expanded(
                                               flex: 1,
                                               child: infoTextFieldContainer(
-                                                text: Strings.emailAddress,
-                                                mController:
-                                                    emailAddressFieldController,
-                                                  type: TextInputType.emailAddress,
-                                                error: emailError,
-                                              ),
+                                                  text: Strings.emailAddress,
+                                                  mController:
+                                                      emailAddressFieldController,
+                                                  type: TextInputType
+                                                      .emailAddress,
+                                                  error: emailError,
+                                                  action: TextInputAction.done,
+                                                  function: () {
+                                                    node.unfocus();
+                                                  }),
                                             ),
                                           ],
                                         ),
@@ -191,8 +203,14 @@ class _InfoPage extends State<PageInfo> {
     );
   }
 
-  Container infoTextFieldContainer(
-      {String text = '', TextEditingController? mController,TextInputType? type,String? error}) {
+  Container infoTextFieldContainer({
+    String text = '',
+    TextEditingController? mController,
+    TextInputType? type,
+    String? error,
+    TextInputAction action = TextInputAction.next,
+    required Function function,
+  }) {
     return Container(
       child: Wrap(
         children: [
@@ -200,22 +218,30 @@ class _InfoPage extends State<PageInfo> {
           Container(
             height: 45,
             decoration: Decorations.rounded8WhiteBackground,
-            child: CustomChild.infoPageInputText(controller: mController,type: type,error: error),
+            child: CustomChild.infoPageInputText(
+              controller: mController,
+              type: type,
+              error: error,
+              action: action,
+              node: node,
+            ),
           ),
         ],
       ),
     );
   }
 
-  void _showErrorDialog(ErrorType type,String e) {
-    String message = type==ErrorType.EMPTY? Strings.emptyErrorMessage:Strings.malformedErrorMessage;
+  void _showErrorDialog(ErrorType type, String e) {
+    String message = type == ErrorType.EMPTY
+        ? Strings.emptyErrorMessage
+        : Strings.malformedErrorMessage;
     showDialog<void>(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
           //title: const Text(title),
           title: Text(Strings.emptyErrorTitle),
-          content: Text(sprintf(message,[e])),
+          content: Text(sprintf(message, [e])),
           actions: <Widget>[
             TextButton(
               onPressed: () {
@@ -229,44 +255,38 @@ class _InfoPage extends State<PageInfo> {
     );
   }
 
-
   void checkForEmptyFields() {
     String name = fullNameFieldController.value.text;
     String mobile = mobilePhoneFieldController.value.text;
     String email = emailAddressFieldController.value.text;
 
     setState(() {
-      if(name.isEmpty){
-        _showErrorDialog(ErrorType.EMPTY,"Full name");
+      if (name.isEmpty) {
+        _showErrorDialog(ErrorType.EMPTY, "Full name");
         nameError = Strings.emptyErrorMessage;
         return;
       }
-      if(mobile.isEmpty){
-        _showErrorDialog(ErrorType.EMPTY,"Mobile number");
+      if (mobile.isEmpty) {
+        _showErrorDialog(ErrorType.EMPTY, "Mobile number");
         mobileError = Strings.emptyErrorMessage;
         return;
       }
-      if(email.isNotEmpty&&!email.isValidEmail()){
-        _showErrorDialog(ErrorType.MALFORMED,"email");
+      if (email.isNotEmpty && !email.isValidEmail()) {
+        _showErrorDialog(ErrorType.MALFORMED, "email");
         emailError = Strings.malformedErrorMessage;
         return;
       }
       navigate();
     });
-
-
-
   }
-
 }
+
 extension EmailValidator on String {
   bool isValidEmail() {
     return RegExp(
-        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
+            r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
         .hasMatch(this);
   }
 }
-enum ErrorType{
-  EMPTY,
-  MALFORMED
-}
+
+enum ErrorType { EMPTY, MALFORMED }

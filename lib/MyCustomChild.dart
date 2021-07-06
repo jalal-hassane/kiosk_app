@@ -10,11 +10,22 @@ import 'MyFonts.dart';
 import 'MyStyles.dart';
 
 class CustomChild {
-  static TextField infoPageInputText({TextEditingController? controller,TextInputType? type,String? error}) {
+  static TextField infoPageInputText({
+    TextEditingController? controller,
+    TextInputType? type,
+    String? error,
+    TextInputAction action = TextInputAction.next,
+    required FocusScopeNode node,
+  }) {
     return TextField(
       controller: controller,
       keyboardType: type,
       autofocus: false,
+      textInputAction: action,
+      onEditingComplete: () => node.nextFocus(),
+      onSubmitted: (_) => {
+      if (action == TextInputAction.done) node.unfocus()
+    },
       style: TextStyle(
         fontFamily: Fonts.exo2Regular,
         fontSize: 18,
@@ -25,7 +36,7 @@ class CustomChild {
         border: InputBorder.none,
         focusedBorder: InputBorder.none,
         enabledBorder: InputBorder.none,
-        errorBorder:  InputBorder.none,
+        errorBorder: InputBorder.none,
         disabledBorder: InputBorder.none,
         contentPadding: EdgeInsets.all(16),
       ),
