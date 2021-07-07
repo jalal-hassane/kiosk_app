@@ -69,7 +69,6 @@ class _PageSpinner extends State<PageSpinner>
   var rootDisabled = false;
 
   var hasWon = ['', '', '', ''];
-  final controllers = <AnimationController>[];
   var hasWonIndex = 0;
   var prizeIndex = Fortune.randomInt(0, 7);
 
@@ -86,13 +85,8 @@ class _PageSpinner extends State<PageSpinner>
     super.dispose();
   }
 
-
   @override
   void initState() {
-    controllers.add(_controller);
-    controllers.add(_controller);
-    controllers.add(_controller);
-    controllers.add(_controller);
   }
 
   void navigate() {
@@ -346,32 +340,6 @@ class _PageSpinner extends State<PageSpinner>
                                                                 .fastOutSlowIn,
                                                             triggerOnInit:
                                                                 false,
-                                                            endAnimationListener:
-                                                                (state) {
-                                                              print(
-                                                                  "End animation $animateCounter");
-                                                              setState(
-                                                                () {
-                                                                  if (animateCounter ==
-                                                                      1) {
-                                                                    print(
-                                                                        "End animation 2 $animateCounter");
-                                                                    animateCounter =
-                                                                        0;
-                                                                    _tween = Tween<
-                                                                            double>(
-                                                                        begin:
-                                                                            1.2,
-                                                                        end:
-                                                                            1.0);
-                                                                    //_tween.end = 1.0;
-                                                                    //animatorKey.controller.animateBack(1.0);
-                                                                  }
-                                                                },
-                                                              );
-                                                              /*animatorKey
-                                                                  .triggerAnimation();*/
-                                                            },
                                                             builder: (_,
                                                                     animationState,
                                                                     __) =>
@@ -598,9 +566,11 @@ class _PageSpinner extends State<PageSpinner>
     ).animate(_controller)
       ..addStatusListener((status) {
         if (status == AnimationStatus.completed) {
-          rootDisabled = false;
-          animateCounter = 1;
-          animatorKey.controller.forward(from: 0);
+          setState(() {
+            rootDisabled = false;
+            animateCounter = 1;
+            animatorKey.controller.forward(from: 0);
+          });
         }
       });
   }
@@ -647,7 +617,7 @@ class _PageSpinner extends State<PageSpinner>
       print("Index $prizeIndex");
       print("hasWonIndex $hasWonIndex");
       hasWon.insert(hasWonIndex++, prizeList[prizeIndex]);
-      controllers[hasWonIndex].forward();
+      _controller.forward();
       prizeIndex = Fortune.randomInt(0, prizeList.length);
     });
   }
