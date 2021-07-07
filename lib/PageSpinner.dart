@@ -69,6 +69,7 @@ class _PageSpinner extends State<PageSpinner>
   var rootDisabled = false;
 
   var hasWon = ['', '', '', ''];
+  final controllers = <AnimationController>[];
   var hasWonIndex = 0;
   var prizeIndex = Fortune.randomInt(0, 7);
 
@@ -76,12 +77,22 @@ class _PageSpinner extends State<PageSpinner>
   var _tween = Tween<double>(begin: 0, end: 1.2);
 
   var currentAnimation = "scale_up_1";
+  var animateCounter = 0;
 
   @override
   void dispose() {
     controller.close();
     _controller.dispose();
     super.dispose();
+  }
+
+
+  @override
+  void initState() {
+    controllers.add(_controller);
+    controllers.add(_controller);
+    controllers.add(_controller);
+    controllers.add(_controller);
   }
 
   void navigate() {
@@ -323,8 +334,11 @@ class _PageSpinner extends State<PageSpinner>
                                                           child:
                                                               Animator<double>(
                                                             duration: Duration(
-                                                              seconds: 3,
+                                                              milliseconds: 500,
                                                             ),
+                                                            statusListener:
+                                                                (status,
+                                                                    state) {},
                                                             animatorKey:
                                                                 animatorKey,
                                                             tween: _tween,
@@ -334,23 +348,24 @@ class _PageSpinner extends State<PageSpinner>
                                                                 false,
                                                             endAnimationListener:
                                                                 (state) {
+                                                              print(
+                                                                  "End animation $animateCounter");
                                                               setState(
                                                                 () {
-                                                                  if (scaleDownFlag) {
-                                                                    /*_tween = Tween<
-                                                                        double>(
-                                                                      begin:
-                                                                          1.2,
-                                                                      end: 0,
-                                                                    );*/
-                                                                  } else {
+                                                                  if (animateCounter ==
+                                                                      1) {
+                                                                    print(
+                                                                        "End animation 2 $animateCounter");
+                                                                    animateCounter =
+                                                                        0;
                                                                     _tween = Tween<
-                                                                        double>(
-                                                                      begin:
-                                                                          1.2,
-                                                                      end: 1,
-                                                                    );
-
+                                                                            double>(
+                                                                        begin:
+                                                                            1.2,
+                                                                        end:
+                                                                            1.0);
+                                                                    //_tween.end = 1.0;
+                                                                    //animatorKey.controller.animateBack(1.0);
                                                                   }
                                                                 },
                                                               );
@@ -362,7 +377,8 @@ class _PageSpinner extends State<PageSpinner>
                                                                     __) =>
                                                                 Transform.scale(
                                                               scale:
-                                                                  animationState.value,
+                                                                  animationState
+                                                                      .value,
                                                               child: Container(
                                                                 width:
                                                                     screenWidth *
@@ -495,10 +511,10 @@ class _PageSpinner extends State<PageSpinner>
       //onEndSpinAgainWidth = 0.0;
       spinAgainWidth = 0.0;
       scaleDownFlag = true;
-      _tween = Tween(begin: 1, end: 1.2);
+      //_tween = Tween(begin: 1, end: 1.2);
       currentAnimation = "scale_up_2";
       //animatorKey.triggerAnimation();
-      animatorKey.controller.forward(from: 0);
+      animatorKey.controller.reverse();
     });
   }
 
@@ -573,30 +589,29 @@ class _PageSpinner extends State<PageSpinner>
   late final AnimationController _controller = AnimationController(
       duration: const Duration(seconds: 1),
       vsync: this,
-      animationBehavior: AnimationBehavior.preserve)
-    ..repeat();
-
-  /*CurvedAnimation(
-  parent: _controller,
-  curve: Curves.easeOut,
-  )*/
+      animationBehavior: AnimationBehavior.preserve);
 
   Animation<Offset> getOffset(String text) {
     return Tween<Offset>(
       begin: Offset.zero,
       end: Offset(0.0, text.isEmpty ? 0 : -1.1),
-    ).animate(_controller);
+    ).animate(_controller)
+      ..addStatusListener((status) {
+        if (status == AnimationStatus.completed) {
+          rootDisabled = false;
+          animateCounter = 1;
+          animatorKey.controller.forward(from: 0);
+        }
+      });
   }
 
   void animationStart() {
-    //startTimer();
     setState(() {
       rootDisabled = true;
     });
   }
 
   void animationEnd() {
-    //timer.cancel();
     setState(() {
       animateSpinnerBackground(MyAssets.spinnerBackgroundOn);
     });
@@ -632,42 +647,9 @@ class _PageSpinner extends State<PageSpinner>
       print("Index $prizeIndex");
       print("hasWonIndex $hasWonIndex");
       hasWon.insert(hasWonIndex++, prizeList[prizeIndex]);
-      _controller.forward();
+      controllers[hasWonIndex].forward();
       prizeIndex = Fortune.randomInt(0, prizeList.length);
-      rootDisabled = false;
-      //spinAgainVisibility = true;
-      print("spinAgainWidth before = $spinAgainWidth");
-      spinAgainWidth = screenWidth * 0.35;
-      print("spinAgainWidth after = $spinAgainWidth");
-
-      print("onEndSpinAgainWidth before = $onEndSpinAgainWidth");
-      onEndSpinAgainWidth = screenWidth * 0.3;
-      print("onEndSpinAgainWidth after = $onEndSpinAgainWidth");
-
-      _tween = Tween<double>(begin: 0, end: 1.2);
-      animatorKey.triggerAnimation();
-      animatorKey.controller.forward(from: 0);
     });
-  }
-
-  void startTimer() {
-    assetsAudioPlayer.open(
-      Audio(MyAssets.tick, playSpeed: 1.5),
-    );
-    assetsAudioPlayer.setLoopMode(LoopMode.single);
-
-    assetsAudioPlayer.setVolume(0.8);
-    /*timer = Timer.periodic(
-        Duration(
-          milliseconds: 5,
-        ), (timer) {
-      assetsAudioPlayer.seek(
-        Duration(
-          milliseconds: 0,
-        ),
-      );
-      assetsAudioPlayer.play();
-    });*/
   }
 
   FortuneItem fortuneItemBuilder(
@@ -684,88 +666,6 @@ class _PageSpinner extends State<PageSpinner>
         color: color,
         borderColor: Colors.transparent,
         borderWidth: 1,
-      ),
-    );
-  }
-
-  late final AnimationController _scaleController = AnimationController(
-      duration: const Duration(seconds: 2),
-      vsync: this,
-      animationBehavior: AnimationBehavior.preserve);
-
-  late final Animation<double> _scaleUpAnimation1 = Tween<double>(
-    begin: 0,
-    end: 1.5,
-  ).animate(
-      CurvedAnimation(parent: _scaleController, curve: Curves.fastOutSlowIn));
-
-  late final Animation<double> _scaleUpAnimation2 = Tween<double>(
-    begin: 1,
-    end: 1.5,
-  ).animate(
-      CurvedAnimation(parent: _scaleController, curve: Curves.fastOutSlowIn));
-
-  late final Animation<double> _scaleDownAnimation1 = Tween<double>(
-    begin: 1.5,
-    end: 1,
-  ).animate(
-      CurvedAnimation(parent: _scaleController, curve: Curves.fastOutSlowIn));
-
-  late final Animation<double> _scaleDownAnimation2 = Tween<double>(
-    begin: 1.5,
-    end: 0,
-  ).animate(
-      CurvedAnimation(parent: _scaleController, curve: Curves.fastOutSlowIn));
-
-  void animate() {
-    /*AnimateWidget(
-      builder: (_, Animate animate) {
-        return ScaleTransition(
-          scale: animate.curvedAnimation,
-        );
-      },
-      endAnimationListener: () {},
-    );*/
-
-    Animator<double>(
-      tween: Tween<double>(begin: 0, end: 1.2),
-      curve: Curves.fastOutSlowIn,
-      cycles: 0,
-      builder: (_, animationState, __) => Transform.scale(
-        scale: animationState.value,
-        child: Container(
-          decoration: BoxDecoration(
-            color: AppColors.orange,
-            shape: BoxShape.circle,
-          ),
-          child: AspectRatio(
-            aspectRatio: 1 / 1,
-            child: Center(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  SvgPicture.asset(
-                    MyAssets.refreshSvg,
-                    height: screenWidth * 0.15,
-                  ),
-                  AutoSizeText(
-                    Strings.spinAgain,
-                    maxLines: 1,
-                    maxFontSize: 14,
-                    minFontSize: 7,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontFamily: Fonts.exo2Black,
-                      fontSize: 14,
-                      height: 1,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
       ),
     );
   }
