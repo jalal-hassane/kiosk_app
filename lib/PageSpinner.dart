@@ -75,7 +75,6 @@ class _PageSpinner extends State<PageSpinner>
   late Timer timer;
   var _tween = Tween<double>(begin: 0, end: 1.2);
 
-  var currentAnimation = "scale_up_1";
   var animateCounter = 0;
 
   @override
@@ -86,8 +85,7 @@ class _PageSpinner extends State<PageSpinner>
   }
 
   @override
-  void initState() {
-  }
+  void initState() {}
 
   void navigate() {
     Navigator.push(
@@ -475,13 +473,8 @@ class _PageSpinner extends State<PageSpinner>
 
   void spinAgain() {
     setState(() {
-      //spinAgainVisibility = false;
-      //onEndSpinAgainWidth = 0.0;
       spinAgainWidth = 0.0;
       scaleDownFlag = true;
-      //_tween = Tween(begin: 1, end: 1.2);
-      currentAnimation = "scale_up_2";
-      //animatorKey.triggerAnimation();
       animatorKey.controller.reverse();
     });
   }
