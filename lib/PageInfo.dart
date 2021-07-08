@@ -10,7 +10,7 @@ import 'package:kiosk_app/MyDecorations.dart';
 import 'package:kiosk_app/MyFonts.dart';
 import 'package:sprintf/sprintf.dart';
 
-import 'MyStrings.dart';
+import 'MyTexts.dart';
 import 'PageHowToPlay.dart';
 
 class PageInfo extends StatefulWidget {

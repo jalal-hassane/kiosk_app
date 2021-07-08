@@ -14,6 +14,4 @@ class AppColors {
   static const Color spinnerTipBackground = Color(0xff212121);
   static const Color prizesRecyclerViewBackground = Color(0xff262626);
   static const Color grayUnknown = Color(0xff494949);
-
-
 }

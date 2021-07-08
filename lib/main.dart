@@ -7,9 +7,15 @@ import 'package:flutter_svg/svg.dart';
 import 'package:kiosk_app/MyAssets.dart';
 import 'package:kiosk_app/MyColors.dart';
 import 'package:kiosk_app/MyFonts.dart';
-import 'package:kiosk_app/MyStrings.dart';
+import 'package:kiosk_app/MyTexts.dart';
+import 'package:kiosk_app/PageHowToPlay.dart';
 import 'package:kiosk_app/PageInfo.dart';
+import 'package:kiosk_app/PageRaffle.dart';
+import 'package:kiosk_app/PageSpinCount.dart';
+import 'package:kiosk_app/PageSpinner.dart';
 import 'package:shimmer/shimmer.dart';
+
+import 'PageReward.dart';
 
 void main() {
   runApp(
@@ -43,6 +49,31 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
+      routes: {
+       /* '/landing': (BuildContext context) => PageHome(
+              title: 'Home',
+            ),*/
+        '/info': (BuildContext context) => PageInfo(
+              title: 'Info',
+            ),
+        '/howTo': (BuildContext context) => PageHowToPlay(
+              title: 'How to play',
+            ),
+        '/raffle': (BuildContext context) => PageRaffle(
+              title: 'Raffle',
+            ),
+        '/spinCount': (BuildContext context) => PageSpinCount(
+              title: 'Spin Count',
+            ),
+        '/spinner': (BuildContext context) => PageSpinner(
+              title: 'Spinner',
+              count: 0,
+            ),
+        '/reward': (BuildContext context) => PageReward(
+              title: 'Reward',
+              prizes: [],
+            ),
+      },
       home: PageHome(title: 'KioskApp'),
     );
   }

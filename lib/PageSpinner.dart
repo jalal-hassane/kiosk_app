@@ -8,33 +8,35 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_fortune_wheel/flutter_fortune_wheel.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:kiosk_app/PageSpinnerPackageTest.dart';
+import 'package:kiosk_app/PageReward.dart';
 
 import 'LayoutTop.dart';
 import 'LayoutTriangles.dart';
 import 'MyAssets.dart';
 import 'MyColors.dart';
 import 'MyFonts.dart';
-import 'MyStrings.dart';
 import 'MyStyles.dart';
+import 'MyTexts.dart';
 
 class PageSpinner extends StatefulWidget {
-  PageSpinner({Key? key, required this.title}) : super(key: key);
+  PageSpinner({Key? key, required this.title, required this.count})
+      : super(key: key);
   final String title;
+  final int count;
 
   @override
-  _PageSpinner createState() => _PageSpinner();
+  _PageSpinner createState() => _PageSpinner(count);
 }
 
-class _PageSpinner extends State<PageSpinner>
-    with SingleTickerProviderStateMixin {
-  int remainingSpins = 2;
+class _PageSpinner extends State<PageSpinner> with TickerProviderStateMixin {
+  int remainingSpins = 0;
+  int itemCount = 0;
+
   bool spinAgainVisibility = false;
   var spinAgainWidth = 0.0;
   var scaleDownFlag = false;
   var isAnimating = false;
   var onEndSpinAgainWidth = 0.0;
-  int itemCount = 4;
   StreamController<int> controller = StreamController<int>();
   AudioPlayer player = AudioPlayer();
   AudioCache cache = AudioCache();
@@ -68,7 +70,8 @@ class _PageSpinner extends State<PageSpinner>
 
   var rootDisabled = false;
 
-  var hasWon = ['', '', '', ''];
+  var hasWon = <String>[''];
+
   var hasWonIndex = 0;
   var prizeIndex = Fortune.randomInt(0, 7);
 
@@ -76,22 +79,41 @@ class _PageSpinner extends State<PageSpinner>
   var _tween = Tween<double>(begin: 0, end: 1.2);
 
   var animateCounter = 0;
+  final _controllers = <AnimationController>[];
+
+  _PageSpinner(int count) {
+    remainingSpins = count;
+    itemCount = count;
+  }
 
   @override
   void dispose() {
     controller.close();
-    _controller.dispose();
+    for (AnimationController c in _controllers) {
+      c.dispose();
+    }
+    //_controller.dispose();
     super.dispose();
   }
 
   @override
-  void initState() {}
+  void initState() {
+    super.initState();
+    _controllers.add(_controller());
+    _controllers.add(_controller());
+    _controllers.add(_controller());
+    _controllers.add(_controller());
+  }
 
   void navigate() {
+    hasWon.removeWhere((element) => element == '');
     Navigator.push(
       context,
       MaterialPageRoute(
-          builder: (context) => PageSpinnerPackageTest(title: 'package test')),
+          builder: (context) => PageReward(
+                title: 'package test',
+                prizes: hasWon,
+              )),
     );
   }
 
@@ -447,8 +469,8 @@ class _PageSpinner extends State<PageSpinner>
                                         bottom: 10,
                                       ),
                                       padding: EdgeInsets.only(
-                                        right: 4,
-                                        left: 4,
+                                        left: 5,
+                                        right: 5,
                                       ),
                                       width: screenWidth * 0.9,
                                       child: builder(),
@@ -476,6 +498,13 @@ class _PageSpinner extends State<PageSpinner>
       spinAgainWidth = 0.0;
       scaleDownFlag = true;
       animatorKey.controller.reverse();
+
+      /*hasWon.insert(hasWonIndex, prizeList[prizeIndex]);
+      _controllers[hasWonIndex].forward();
+
+      hasWonIndex++;*/
+      animateSpinnerBackground(MyAssets.spinnerBackgroundOn);
+      //animatePrize();
     });
   }
 
@@ -496,21 +525,17 @@ class _PageSpinner extends State<PageSpinner>
     final screenWidth =
         MediaQuery.of(context).size.width; // device screen width
     return Container(
-      width: screenWidth * 0.3,
+      margin: EdgeInsets.only(right: 5, top: 5, bottom: 5),
+      width: itemCount >= 3 ? screenWidth * 0.3 : screenWidth * 0.9 / itemCount,
       height: 100,
-      margin: EdgeInsets.all(3),
       decoration: BoxDecoration(
         color: AppColors.orange,
         borderRadius: BorderRadius.circular(10),
       ),
-      child: Stack(
-        children: [
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.only(
-                left: 2,
-                right: 2,
-              ),
+      child: Center(
+        child: Stack(
+          children: [
+            Center(
               child: AutoSizeText(
                 text,
                 textAlign: TextAlign.center,
@@ -524,48 +549,43 @@ class _PageSpinner extends State<PageSpinner>
                 ),
               ),
             ),
-          ),
-          SlideTransition(
-            position: getOffset(text),
-            child: Container(
-              width: screenWidth * 0.3,
-              decoration: BoxDecoration(
-                color: AppColors.grayUnknown,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Padding(
-                padding: EdgeInsets.only(
-                  top: 15,
-                  bottom: 15,
+            SlideTransition(
+              position: getOffset(text, index),
+              child: Container(
+                width: itemCount >= 3
+                    ? screenWidth * 0.3
+                    : screenWidth * 0.9 / itemCount,
+                decoration: BoxDecoration(
+                  color: AppColors.grayUnknown,
+                  borderRadius: BorderRadius.circular(10),
                 ),
-                child: Image.asset(MyAssets.ivQuestion),
+                child: Padding(
+                  padding: EdgeInsets.only(
+                    top: 15,
+                    bottom: 15,
+                  ),
+                  child: Image.asset(MyAssets.ivQuestion),
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
 
-  late final AnimationController _controller = AnimationController(
-      duration: const Duration(seconds: 1),
-      vsync: this,
-      animationBehavior: AnimationBehavior.preserve);
+  AnimationController _controller() {
+    return AnimationController(
+        duration: const Duration(seconds: 1),
+        vsync: this,
+        animationBehavior: AnimationBehavior.preserve);
+  }
 
-  Animation<Offset> getOffset(String text) {
+  Animation<Offset> getOffset(String text, int index) {
     return Tween<Offset>(
       begin: Offset.zero,
       end: Offset(0.0, text.isEmpty ? 0 : -1.1),
-    ).animate(_controller)
-      ..addStatusListener((status) {
-        if (status == AnimationStatus.completed) {
-          setState(() {
-            rootDisabled = false;
-            animateCounter = 1;
-            animatorKey.controller.forward(from: 0);
-          });
-        }
-      });
+    ).animate(_controllers[index]);
   }
 
   void animationStart() {
@@ -607,10 +627,24 @@ class _PageSpinner extends State<PageSpinner>
 
   void animatePrize() {
     setState(() {
+      remainingSpins--;
+      print("Remaining $remainingSpins");
       print("Index $prizeIndex");
       print("hasWonIndex $hasWonIndex");
-      hasWon.insert(hasWonIndex++, prizeList[prizeIndex]);
-      _controller.forward();
+      hasWon.insert(hasWonIndex, prizeList[prizeIndex]);
+      _controllers[hasWonIndex].forward().whenComplete(() => setState(() {
+            if (remainingSpins == 0) {
+              // go to finish page
+
+              navigate();
+              return;
+            }
+
+            rootDisabled = false;
+            animateCounter = 1;
+            animatorKey.controller.forward(from: 0);
+          }));
+      hasWonIndex++;
       prizeIndex = Fortune.randomInt(0, prizeList.length);
     });
   }

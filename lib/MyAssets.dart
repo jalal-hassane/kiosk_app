@@ -46,4 +46,10 @@ class MyAssets {
   static const ivQuestion = 'assets/images/ic_question.png';
 
   static const tick = 'assets/sounds/tick.mp3';
+
+  // PageReward
+
+  static const backgroundPrize1 = 'assets/images/im_result_background_1.png';
+  static const backgroundPrize2 = 'assets/images/im_result_background_2.png';
+  static const youWonBanner = 'assets/images/im_you_won_banner.png';
 }

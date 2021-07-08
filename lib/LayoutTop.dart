@@ -5,7 +5,7 @@ import 'package:kiosk_app/MyAssets.dart';
 import 'package:kiosk_app/MyColors.dart';
 import 'package:kiosk_app/MyFonts.dart';
 
-import 'MyStrings.dart';
+import 'MyTexts.dart';
 
 class TopLayout extends StatefulWidget {
   bool helpIsVisible = false;

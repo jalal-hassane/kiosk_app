@@ -12,7 +12,7 @@ import 'LayoutTriangles.dart';
 import 'MyColors.dart';
 import 'MyCustomChild.dart';
 import 'MyFonts.dart';
-import 'MyStrings.dart';
+import 'MyTexts.dart';
 
 class PageSpinCount extends StatefulWidget {
   PageSpinCount({Key? key, required this.title}) : super(key: key);

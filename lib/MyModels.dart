@@ -1,2 +1,3 @@
-class SpinnerItem{}
-class S{}
+class SpinnerItem {}
+
+class S {}

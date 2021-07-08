@@ -7,7 +7,7 @@ import 'package:kiosk_app/PageSpinCount.dart';
 import 'LayoutTop.dart';
 import 'LayoutTriangles.dart';
 import 'MyFonts.dart';
-import 'MyStrings.dart';
+import 'MyTexts.dart';
 
 class PageHowToPlay extends StatefulWidget {
   PageHowToPlay({Key? key, required this.title}) : super(key: key);
@@ -393,7 +393,8 @@ class _HowToPlayPage extends State<PageHowToPlay> {
                                     ),
                                     child: CustomChild.goButton(
                                       mWidth: screenWidth * 0.6,
-                                      mHeight: screenHeight * 0.115, //not needed since maxHeight is set
+                                      mHeight: screenHeight *
+                                          0.115, //not needed since maxHeight is set
                                     ),
                                   ),
                                 ),

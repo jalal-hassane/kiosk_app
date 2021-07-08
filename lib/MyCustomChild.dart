@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:kiosk_app/MyAssets.dart';
-import 'package:kiosk_app/MyStrings.dart';
+import 'package:kiosk_app/MyTexts.dart';
 
 import 'MyColors.dart';
 import 'MyFonts.dart';
@@ -23,9 +23,7 @@ class CustomChild {
       autofocus: false,
       textInputAction: action,
       onEditingComplete: () => node.nextFocus(),
-      onSubmitted: (_) => {
-      if (action == TextInputAction.done) node.unfocus()
-    },
+      onSubmitted: (_) => {if (action == TextInputAction.done) node.unfocus()},
       style: TextStyle(
         fontFamily: Fonts.exo2Regular,
         fontSize: 18,
@@ -99,6 +97,7 @@ class CustomChild {
   }
 
   static Center backButton({
+    String title = Strings.back,
     double mWidth = 0,
     double mHeight = 0,
     double marginTop = 0,
@@ -126,7 +125,7 @@ class CustomChild {
             ),
             Center(
               child: Text(
-                Strings.back,
+                title,
                 style: TextStyle(
                   fontFamily: Fonts.exo2Black,
                   fontSize: 20,
@@ -140,6 +139,8 @@ class CustomChild {
       ),
     );
   }
+
+
 
   static Container howToPlayText(String text, {double width = 0}) {
     return Container(

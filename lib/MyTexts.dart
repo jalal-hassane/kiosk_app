@@ -29,6 +29,9 @@ class Strings {
 
   static const String emptyErrorTitle = "Empty Field";
   static const String emptyErrorMessage = "%s is required";
-  static const String malformedErrorMessage = "The %s data you entered is malformed";
+  static const String malformedErrorMessage =
+      "The %s data you entered is malformed";
 
+  static const String pleaseCollectItems =
+      "Please collect your items from the booth next to the kiosk.";
 }

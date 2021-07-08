@@ -5,9 +5,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kiosk_app/MyColors.dart';
 import 'package:kiosk_app/MyDecorations.dart';
 import 'package:kiosk_app/MyFonts.dart';
-import 'package:kiosk_app/MyStrings.dart';
+import 'package:kiosk_app/MyTexts.dart';
 import 'package:kiosk_app/PageSpinner.dart';
-import 'package:kiosk_app/PageSpinnerPackageTest.dart';
 
 import 'LayoutTop.dart';
 import 'LayoutTriangles.dart';
@@ -24,6 +23,11 @@ class PageRaffle extends StatefulWidget {
 
 class _PageRaffle extends State<PageRaffle> {
   int counter250 = 0, counter500 = 0, counter1000 = 0, balance = 1000;
+
+  get _spinCount {
+    return counter250 + counter500 + counter1000;
+  }
+
   double proceedAlpha = 0.5,
       minus1000Alpha = 1,
       plus1000Alpha = 1,
@@ -43,9 +47,17 @@ class _PageRaffle extends State<PageRaffle> {
   void navigate() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => PageSpinner(title: 'Spinner')),
+      MaterialPageRoute(
+          builder: (context) => PageSpinner(
+                title: 'Spinner',
+                count: _spinCount,
+              )),
     );
   }
+
+  /* int _spinCount(){
+    return counter250 + counter500 + counter1000;
+  }*/
 
   @override
   Widget build(BuildContext context) {
