@@ -70,13 +70,14 @@ class _PageSpinner extends State<PageSpinner> with TickerProviderStateMixin {
 
   var rootDisabled = false;
 
-  var hasWon = <String>[''];
+  var hasWon = <String>[];
 
   var hasWonIndex = 0;
   var prizeIndex = Fortune.randomInt(0, 7);
 
   late Timer timer;
-  var _tween = Tween<double>(begin: 0, end: 1.2);
+  var _tween = Tween<double>(begin: 0, end: 1.0);
+  late AnimationController _scaleAnimationController;
 
   var animateCounter = 0;
   final _controllers = <AnimationController>[];
@@ -84,6 +85,7 @@ class _PageSpinner extends State<PageSpinner> with TickerProviderStateMixin {
   _PageSpinner(int count) {
     remainingSpins = count;
     itemCount = count;
+    hasWon = List.filled(itemCount, '');
   }
 
   @override
@@ -92,6 +94,7 @@ class _PageSpinner extends State<PageSpinner> with TickerProviderStateMixin {
     for (AnimationController c in _controllers) {
       c.dispose();
     }
+    _scaleAnimationController.dispose();
     //_controller.dispose();
     super.dispose();
   }
@@ -103,17 +106,28 @@ class _PageSpinner extends State<PageSpinner> with TickerProviderStateMixin {
     _controllers.add(_controller());
     _controllers.add(_controller());
     _controllers.add(_controller());
+
+    _scaleAnimationController = AnimationController(
+        vsync: this,
+        duration: Duration(
+          milliseconds: 1000,
+        ),
+        animationBehavior: AnimationBehavior.preserve,
+        lowerBound: 0.0,
+        upperBound: 1.2);
+
+    _tween.animate(_scaleAnimationController);
   }
 
   void navigate() {
-    hasWon.removeWhere((element) => element == '');
+    //hasWon.removeWhere((element) => element == '');
     Navigator.push(
       context,
       MaterialPageRoute(
           builder: (context) => PageReward(
-                title: 'package test',
-                prizes: hasWon,
-              )),
+            title: 'package test',
+            prizes: hasWon,
+          )),
     );
   }
 
@@ -278,7 +292,7 @@ class _PageSpinner extends State<PageSpinner> with TickerProviderStateMixin {
                                                   children: [
                                                     Container(
                                                       margin:
-                                                          EdgeInsets.all(22),
+                                                      EdgeInsets.all(22),
                                                       child: FortuneWheel(
                                                         duration: Duration(
                                                           seconds: 5,
@@ -293,7 +307,7 @@ class _PageSpinner extends State<PageSpinner> with TickerProviderStateMixin {
                                                             alignment: Alignment
                                                                 .center,
                                                             child:
-                                                                FractionallySizedBox(
+                                                            FractionallySizedBox(
                                                               heightFactor: 0.1,
                                                               child: SvgPicture
                                                                   .asset(
@@ -307,12 +321,12 @@ class _PageSpinner extends State<PageSpinner> with TickerProviderStateMixin {
                                                         ],
                                                         animateFirst: true,
                                                         physics:
-                                                            CircularPanPhysics(
+                                                        CircularPanPhysics(
                                                           duration: Duration(
                                                             seconds: 1,
                                                           ),
                                                           curve:
-                                                              Curves.decelerate,
+                                                          Curves.decelerate,
                                                         ),
                                                         onAnimationStart: () {
                                                           //start the sound
@@ -325,15 +339,15 @@ class _PageSpinner extends State<PageSpinner> with TickerProviderStateMixin {
                                                         //selected: Stream.value(0),
                                                         items: [
                                                           for (int i = 0;
-                                                              i <
-                                                                  prizeList
-                                                                      .length;
-                                                              i++)
+                                                          i <
+                                                              prizeList
+                                                                  .length;
+                                                          i++)
                                                             fortuneItemBuilder(
                                                               prize:
-                                                                  prizeList[i],
+                                                              prizeList[i],
                                                               color:
-                                                                  colorList[i],
+                                                              colorList[i],
                                                             ),
                                                         ],
                                                       ),
@@ -345,79 +359,63 @@ class _PageSpinner extends State<PageSpinner> with TickerProviderStateMixin {
                                                       child: Visibility(
                                                         visible: true,
                                                         child: Center(
-                                                          child:
-                                                              Animator<double>(
-                                                            duration: Duration(
-                                                              milliseconds: 500,
-                                                            ),
-                                                            statusListener:
-                                                                (status,
-                                                                    state) {},
-                                                            animatorKey:
-                                                                animatorKey,
-                                                            tween: _tween,
-                                                            curve: Curves
-                                                                .fastOutSlowIn,
-                                                            triggerOnInit:
-                                                                false,
-                                                            builder: (_,
-                                                                    animationState,
-                                                                    __) =>
-                                                                Transform.scale(
+                                                          child: Container(
+                                                            child:
+                                                            Transform.scale(
                                                               scale:
-                                                                  animationState
-                                                                      .value,
+                                                              _scaleAnimationController
+                                                                  .value,
                                                               child: Container(
                                                                 width:
-                                                                    screenWidth *
-                                                                        0.3,
+                                                                screenWidth *
+                                                                    0.3,
                                                                 decoration:
-                                                                    BoxDecoration(
+                                                                BoxDecoration(
                                                                   color: AppColors
                                                                       .orange,
                                                                   shape: BoxShape
                                                                       .circle,
                                                                 ),
                                                                 child:
-                                                                    AspectRatio(
+                                                                AspectRatio(
                                                                   aspectRatio:
-                                                                      1 / 1,
+                                                                  1 / 1,
                                                                   child: Center(
                                                                     child:
-                                                                        Column(
+                                                                    Column(
                                                                       mainAxisSize:
-                                                                          MainAxisSize
-                                                                              .min,
+                                                                      MainAxisSize
+                                                                          .min,
                                                                       mainAxisAlignment:
-                                                                          MainAxisAlignment
-                                                                              .spaceEvenly,
+                                                                      MainAxisAlignment
+                                                                          .spaceEvenly,
                                                                       children: [
                                                                         SvgPicture
                                                                             .asset(
                                                                           MyAssets
                                                                               .refreshSvg,
                                                                           height:
-                                                                              screenWidth * 0.15,
+                                                                          screenWidth * 0.15,
                                                                         ),
                                                                         AutoSizeText(
                                                                           Strings
                                                                               .spinAgain,
                                                                           maxLines:
-                                                                              1,
+                                                                          1,
                                                                           maxFontSize:
-                                                                              14,
+                                                                          14,
                                                                           minFontSize:
-                                                                              7,
+                                                                          7,
                                                                           style:
-                                                                              TextStyle(
+                                                                          TextStyle(
                                                                             color:
-                                                                                Colors.black,
+                                                                            Colors.black,
                                                                             fontFamily:
-                                                                                Fonts.exo2Black,
+                                                                            Fonts.exo2Black,
                                                                             fontSize:
-                                                                                14,
+                                                                            14,
                                                                             height:
-                                                                                1,
+                                                                            1,
                                                                           ),
                                                                         ),
                                                                       ],
@@ -497,7 +495,9 @@ class _PageSpinner extends State<PageSpinner> with TickerProviderStateMixin {
     setState(() {
       spinAgainWidth = 0.0;
       scaleDownFlag = true;
-      animatorKey.controller.reverse();
+      _scaleAnimationController
+          .forward(from: 1.0)
+          .whenComplete(() => {_scaleAnimationController.reverse()});
 
       /*hasWon.insert(hasWonIndex, prizeList[prizeIndex]);
       _controllers[hasWonIndex].forward();
@@ -631,19 +631,26 @@ class _PageSpinner extends State<PageSpinner> with TickerProviderStateMixin {
       print("Remaining $remainingSpins");
       print("Index $prizeIndex");
       print("hasWonIndex $hasWonIndex");
-      hasWon.insert(hasWonIndex, prizeList[prizeIndex]);
-      _controllers[hasWonIndex].forward().whenComplete(() => setState(() {
-            if (remainingSpins == 0) {
-              // go to finish page
+      hasWon[hasWonIndex] = prizeList[prizeIndex];
+      _controllers[hasWonIndex].forward().whenComplete(() => {
+        setState(() {
+          print("Completing");
+          if (remainingSpins == 0) {
+            // go to finish page
+            navigate();
+            return;
+          }
 
-              navigate();
-              return;
-            }
+          rootDisabled = false;
 
-            rootDisabled = false;
-            animateCounter = 1;
-            animatorKey.controller.forward(from: 0);
-          }));
+          _scaleAnimationController.forward().whenComplete(() => {
+            _scaleAnimationController.animateBack(
+              1.0,
+              duration: Duration(milliseconds: 300),
+            )
+          });
+        })
+      });
       hasWonIndex++;
       prizeIndex = Fortune.randomInt(0, prizeList.length);
     });
