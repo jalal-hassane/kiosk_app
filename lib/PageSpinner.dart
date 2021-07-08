@@ -76,7 +76,7 @@ class _PageSpinner extends State<PageSpinner> with TickerProviderStateMixin {
   var prizeIndex = Fortune.randomInt(0, 7);
 
   late Timer timer;
-  var _tween = Tween<double>(begin: 0, end: 1.0);
+  var _tween = Tween<double>(begin: 0.0, end: 1.2);
   late AnimationController _scaleAnimationController;
 
   var animateCounter = 0;
@@ -95,7 +95,6 @@ class _PageSpinner extends State<PageSpinner> with TickerProviderStateMixin {
       c.dispose();
     }
     _scaleAnimationController.dispose();
-    //_controller.dispose();
     super.dispose();
   }
 
@@ -120,14 +119,13 @@ class _PageSpinner extends State<PageSpinner> with TickerProviderStateMixin {
   }
 
   void navigate() {
-    //hasWon.removeWhere((element) => element == '');
     Navigator.push(
       context,
       MaterialPageRoute(
           builder: (context) => PageReward(
-            title: 'package test',
-            prizes: hasWon,
-          )),
+                title: 'Page Reward',
+                prizes: hasWon,
+              )),
     );
   }
 
@@ -143,156 +141,155 @@ class _PageSpinner extends State<PageSpinner> with TickerProviderStateMixin {
 
     return Scaffold(
       body: SafeArea(
-        child: AbsorbPointer(
-          absorbing: rootDisabled,
-          child: Container(
-            //margin: EdgeInsets.only(top: statusBarHeight),
-            width: screenWidth,
-            height: screenHeight,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage(
-                  MyAssets.backgroundFinal,
-                ),
-                fit: BoxFit.fill,
+        child: Container(
+          width: screenWidth,
+          height: screenHeight,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage(
+                MyAssets.backgroundFinal,
               ),
+              fit: BoxFit.fill,
             ),
-            child: Stack(
-              children: [
-                Container(
-                  color: Colors.transparent,
-                  child: Triangles(),
-                  height: screenHeight - statusBarHeight,
-                  width: screenWidth,
-                ),
-                Center(
-                  child: Column(
-                    children: [
-                      Container(
-                        margin: EdgeInsets.only(
-                          top: screenHeight * 0.03,
-                        ),
-                        color: Colors.transparent,
-                        height: 35,
-                        width: screenWidth * 0.92,
-                        child: Stack(
-                          children: [
-                            TopLayout(
-                              helpIsVisible: false,
-                              questionMarkIsVisible: false,
-                            ),
-                            Center(
-                              child: Text(
-                                Strings.spinWheelText,
-                                style: TextStyle(
-                                  fontFamily: Fonts.exo2Black,
-                                  fontSize: 16,
-                                  color: Colors.white,
-                                  height: 1,
-                                ),
+          ),
+          child: Stack(
+            children: [
+              Container(
+                color: Colors.transparent,
+                child: Triangles(),
+                height: screenHeight - statusBarHeight,
+                width: screenWidth,
+              ),
+              Center(
+                child: Column(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(
+                        top: screenHeight * 0.03,
+                      ),
+                      color: Colors.transparent,
+                      height: 35,
+                      width: screenWidth * 0.92,
+                      child: Stack(
+                        children: [
+                          TopLayout(
+                            helpIsVisible: false,
+                            questionMarkIsVisible: false,
+                          ),
+                          Center(
+                            child: Text(
+                              Strings.spinWheelText,
+                              style: TextStyle(
+                                fontFamily: Fonts.exo2Black,
+                                fontSize: 16,
+                                color: Colors.white,
+                                height: 1,
                               ),
                             ),
-                          ],
-                        ),
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Container(
-                            margin: EdgeInsets.only(
-                              top: 16,
-                            ),
-                            height: 65,
-                            width: screenWidth * 0.5,
-                            child: Stack(
-                              children: [
-                                SvgPicture.asset(
-                                  MyAssets.backgroundBack,
-                                  fit: BoxFit.fill,
-                                ),
-                                Column(
-                                  children: [
-                                    Expanded(
-                                      child: Center(
-                                        child: AutoSizeText(
-                                          '$remainingSpins',
-                                          maxFontSize: 30,
-                                          minFontSize: 16,
-                                          maxLines: 1,
-                                          style: TextStyle(
-                                            fontSize: 30,
-                                            color: AppColors.yellow,
-                                            fontFamily: Fonts.exo2Black,
-                                            height: 1,
-                                          ),
-                                        ),
-                                      ),
-                                      flex: 2,
-                                    ),
-                                    Expanded(
-                                      child: Center(
-                                        child: Text(
-                                          Strings.remainingSpins,
-                                          style: TextStyle(
-                                            fontSize: 12,
-                                            fontFamily: Fonts.exo2ExtraBold,
-                                            color: Colors.white,
-                                            height: 1,
-                                          ),
-                                        ),
-                                      ),
-                                      flex: 1,
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
                           ),
-                          Container(
-                            color: Colors.green,
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Center(
-                                  child: Container(
-                                    color: Colors.red,
-                                    alignment: Alignment.center,
-                                    child: Stack(
-                                      children: [
-                                        Center(
-                                          child: Container(
-                                            height: screenHeight * 0.1,
-                                            decoration: BoxDecoration(
-                                              color: AppColors
-                                                  .spinnerTipBackground,
-                                              shape: BoxShape.circle,
-                                            ),
+                        ],
+                      ),
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(
+                            top: 16,
+                          ),
+                          height: 65,
+                          width: screenWidth * 0.5,
+                          child: Stack(
+                            children: [
+                              SvgPicture.asset(
+                                MyAssets.backgroundBack,
+                                fit: BoxFit.fill,
+                              ),
+                              Column(
+                                children: [
+                                  Expanded(
+                                    child: Center(
+                                      child: AutoSizeText(
+                                        '$remainingSpins',
+                                        maxFontSize: 30,
+                                        minFontSize: 16,
+                                        maxLines: 1,
+                                        style: TextStyle(
+                                          fontSize: 30,
+                                          color: AppColors.yellow,
+                                          fontFamily: Fonts.exo2Black,
+                                          height: 1,
+                                        ),
+                                      ),
+                                    ),
+                                    flex: 2,
+                                  ),
+                                  Expanded(
+                                    child: Center(
+                                      child: Text(
+                                        Strings.remainingSpins,
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          fontFamily: Fonts.exo2ExtraBold,
+                                          color: Colors.white,
+                                          height: 1,
+                                        ),
+                                      ),
+                                    ),
+                                    flex: 1,
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          color: Colors.green,
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Center(
+                                child: Container(
+                                  color: Colors.red,
+                                  alignment: Alignment.center,
+                                  child: Stack(
+                                    children: [
+                                      Center(
+                                        child: Container(
+                                          height: screenHeight * 0.1,
+                                          decoration: BoxDecoration(
+                                            color:
+                                                AppColors.spinnerTipBackground,
+                                            shape: BoxShape.circle,
                                           ),
                                         ),
-                                        Center(
-                                          child: Container(
-                                            margin: EdgeInsets.only(
-                                              top: screenHeight * 0.05,
-                                            ),
-                                            width: screenWidth * 0.9,
-                                            child: AspectRatio(
-                                              aspectRatio: 1 / 1,
-                                              child: Container(
-                                                decoration: BoxDecoration(
-                                                  image: DecorationImage(
-                                                    image: AssetImage(
-                                                      spinnerBackground,
-                                                    ),
+                                      ),
+                                      Center(
+                                        child: Container(
+                                          margin: EdgeInsets.only(
+                                            top: screenHeight * 0.05,
+                                          ),
+                                          width: screenWidth * 0.9,
+                                          child: AspectRatio(
+                                            aspectRatio: 1 / 1,
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                image: DecorationImage(
+                                                  image: AssetImage(
+                                                    spinnerBackground,
                                                   ),
                                                 ),
-                                                width: screenWidth * 0.792,
-                                                //height: 200,
-                                                child: Stack(
-                                                  children: [
-                                                    Container(
+                                              ),
+                                              width: screenWidth * 0.792,
+                                              //height: 200,
+                                              child: Stack(
+                                                children: [
+                                                  AbsorbPointer(
+                                                    absorbing: rootDisabled,
+                                                    child: Container(
                                                       margin:
-                                                      EdgeInsets.all(22),
+                                                          EdgeInsets.all(22),
                                                       child: FortuneWheel(
                                                         duration: Duration(
                                                           seconds: 5,
@@ -307,7 +304,7 @@ class _PageSpinner extends State<PageSpinner> with TickerProviderStateMixin {
                                                             alignment: Alignment
                                                                 .center,
                                                             child:
-                                                            FractionallySizedBox(
+                                                                FractionallySizedBox(
                                                               heightFactor: 0.1,
                                                               child: SvgPicture
                                                                   .asset(
@@ -321,12 +318,12 @@ class _PageSpinner extends State<PageSpinner> with TickerProviderStateMixin {
                                                         ],
                                                         animateFirst: true,
                                                         physics:
-                                                        CircularPanPhysics(
+                                                            CircularPanPhysics(
                                                           duration: Duration(
                                                             seconds: 1,
                                                           ),
                                                           curve:
-                                                          Curves.decelerate,
+                                                              Curves.decelerate,
                                                         ),
                                                         onAnimationStart: () {
                                                           //start the sound
@@ -339,87 +336,86 @@ class _PageSpinner extends State<PageSpinner> with TickerProviderStateMixin {
                                                         //selected: Stream.value(0),
                                                         items: [
                                                           for (int i = 0;
-                                                          i <
-                                                              prizeList
-                                                                  .length;
-                                                          i++)
+                                                              i <
+                                                                  prizeList
+                                                                      .length;
+                                                              i++)
                                                             fortuneItemBuilder(
                                                               prize:
-                                                              prizeList[i],
+                                                                  prizeList[i],
                                                               color:
-                                                              colorList[i],
+                                                                  colorList[i],
                                                             ),
                                                         ],
                                                       ),
                                                     ),
-                                                    GestureDetector(
-                                                      onTap: () {
-                                                        spinAgain();
-                                                      },
-                                                      child: Visibility(
-                                                        visible: true,
-                                                        child: Center(
-                                                          child: Container(
-                                                            child:
-                                                            Transform.scale(
-                                                              scale:
-                                                              _scaleAnimationController
-                                                                  .value,
-                                                              child: Container(
-                                                                width:
-                                                                screenWidth *
-                                                                    0.3,
-                                                                decoration:
-                                                                BoxDecoration(
-                                                                  color: AppColors
-                                                                      .orange,
-                                                                  shape: BoxShape
-                                                                      .circle,
-                                                                ),
-                                                                child:
-                                                                AspectRatio(
-                                                                  aspectRatio:
-                                                                  1 / 1,
-                                                                  child: Center(
-                                                                    child:
-                                                                    Column(
-                                                                      mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .min,
-                                                                      mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .spaceEvenly,
-                                                                      children: [
-                                                                        SvgPicture
-                                                                            .asset(
-                                                                          MyAssets
-                                                                              .refreshSvg,
-                                                                          height:
-                                                                          screenWidth * 0.15,
-                                                                        ),
-                                                                        AutoSizeText(
-                                                                          Strings
-                                                                              .spinAgain,
-                                                                          maxLines:
-                                                                          1,
-                                                                          maxFontSize:
-                                                                          14,
-                                                                          minFontSize:
-                                                                          7,
-                                                                          style:
-                                                                          TextStyle(
-                                                                            color:
-                                                                            Colors.black,
-                                                                            fontFamily:
-                                                                            Fonts.exo2Black,
-                                                                            fontSize:
-                                                                            14,
-                                                                            height:
+                                                  ),
+                                                  GestureDetector(
+                                                    onTap: () {
+                                                      spinAgain();
+                                                    },
+                                                    child: Visibility(
+                                                      visible: true,
+                                                      child: Center(
+                                                        child: Container(
+                                                          child:
+                                                              Transform.scale(
+                                                            scale:
+                                                                _scaleAnimationController
+                                                                    .value,
+                                                            child: Container(
+                                                              width:
+                                                                  screenWidth *
+                                                                      0.3,
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                color: AppColors
+                                                                    .orange,
+                                                                shape: BoxShape
+                                                                    .circle,
+                                                              ),
+                                                              child:
+                                                                  AspectRatio(
+                                                                aspectRatio:
+                                                                    1 / 1,
+                                                                child: Center(
+                                                                  child: Column(
+                                                                    mainAxisSize:
+                                                                        MainAxisSize
+                                                                            .min,
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .spaceEvenly,
+                                                                    children: [
+                                                                      SvgPicture
+                                                                          .asset(
+                                                                        MyAssets
+                                                                            .refreshSvg,
+                                                                        height: screenWidth *
+                                                                            0.15,
+                                                                      ),
+                                                                      AutoSizeText(
+                                                                        Strings
+                                                                            .spinAgain,
+                                                                        maxLines:
                                                                             1,
-                                                                          ),
+                                                                        maxFontSize:
+                                                                            14,
+                                                                        minFontSize:
+                                                                            7,
+                                                                        style:
+                                                                            TextStyle(
+                                                                          color:
+                                                                              Colors.black,
+                                                                          fontFamily:
+                                                                              Fonts.exo2Black,
+                                                                          fontSize:
+                                                                              14,
+                                                                          height:
+                                                                              1,
                                                                         ),
-                                                                      ],
-                                                                    ),
+                                                                      ),
+                                                                    ],
                                                                   ),
                                                                 ),
                                                               ),
@@ -428,63 +424,63 @@ class _PageSpinner extends State<PageSpinner> with TickerProviderStateMixin {
                                                         ),
                                                       ),
                                                     ),
-                                                  ],
-                                                ),
+                                                  ),
+                                                ],
                                               ),
                                             ),
                                           ),
                                         ),
-                                        Positioned(
-                                          left: screenWidth * 0.5 -
-                                              screenHeight * 0.05,
-                                          height: screenHeight * 0.1,
-                                          child: Container(
-                                            margin: EdgeInsets.only(
-                                              top: screenHeight * 0.01,
-                                            ),
-                                            child: SvgPicture.asset(
-                                              MyAssets.tipSvg,
-                                            ),
+                                      ),
+                                      Positioned(
+                                        left: screenWidth * 0.5 -
+                                            screenHeight * 0.05,
+                                        height: screenHeight * 0.1,
+                                        child: Container(
+                                          margin: EdgeInsets.only(
+                                            top: screenHeight * 0.01,
+                                          ),
+                                          child: SvgPicture.asset(
+                                            MyAssets.tipSvg,
                                           ),
                                         ),
-                                      ],
-                                    ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                                Center(
-                                  child: ConstrainedBox(
-                                    constraints: BoxConstraints(
-                                      maxHeight: 90,
+                              ),
+                              Center(
+                                child: ConstrainedBox(
+                                  constraints: BoxConstraints(
+                                    maxHeight: 90,
+                                  ),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: AppColors
+                                          .prizesRecyclerViewBackground,
                                     ),
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        color: AppColors
-                                            .prizesRecyclerViewBackground,
-                                      ),
-                                      margin: EdgeInsets.only(
-                                        top: 10,
-                                        bottom: 10,
-                                      ),
-                                      padding: EdgeInsets.only(
-                                        left: 5,
-                                        right: 5,
-                                      ),
-                                      width: screenWidth * 0.9,
-                                      child: builder(),
+                                    margin: EdgeInsets.only(
+                                      top: 10,
+                                      bottom: 10,
                                     ),
+                                    padding: EdgeInsets.only(
+                                      left: 5,
+                                      right: 5,
+                                    ),
+                                    width: screenWidth * 0.9,
+                                    child: builder(),
                                   ),
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                    ],
-                  ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
@@ -493,18 +489,14 @@ class _PageSpinner extends State<PageSpinner> with TickerProviderStateMixin {
 
   void spinAgain() {
     setState(() {
-      spinAgainWidth = 0.0;
-      scaleDownFlag = true;
+      // todo add rootDisabled = false; when fortune wheel works fine
+
       _scaleAnimationController
           .forward(from: 1.0)
           .whenComplete(() => {_scaleAnimationController.reverse()});
 
-      /*hasWon.insert(hasWonIndex, prizeList[prizeIndex]);
-      _controllers[hasWonIndex].forward();
-
-      hasWonIndex++;*/
+      // todo remove the line below
       animateSpinnerBackground(MyAssets.spinnerBackgroundOn);
-      //animatePrize();
     });
   }
 
@@ -632,28 +624,31 @@ class _PageSpinner extends State<PageSpinner> with TickerProviderStateMixin {
       print("Index $prizeIndex");
       print("hasWonIndex $hasWonIndex");
       hasWon[hasWonIndex] = prizeList[prizeIndex];
-      _controllers[hasWonIndex].forward().whenComplete(() => {
-        setState(() {
-          print("Completing");
-          if (remainingSpins == 0) {
-            // go to finish page
-            navigate();
-            return;
-          }
+      _controllers[hasWonIndex]
+          .forward()
+          .whenComplete(() => {updateUiAfterAnimatingPrize()});
 
-          rootDisabled = false;
-
-          _scaleAnimationController.forward().whenComplete(() => {
-            _scaleAnimationController.animateBack(
-              1.0,
-              duration: Duration(milliseconds: 300),
-            )
-          });
-        })
-      });
       hasWonIndex++;
       prizeIndex = Fortune.randomInt(0, prizeList.length);
     });
+  }
+
+  void updateUiAfterAnimatingPrize() {
+    if (remainingSpins == 0) {
+      navigate();
+      return;
+    } else {
+      setState(() {
+        _scaleAnimationController.forward().whenComplete(() => {
+              _scaleAnimationController.animateBack(
+                1.0,
+                duration: Duration(milliseconds: 300),
+              )
+            });
+        //todo remove this absorber later
+        rootDisabled = false;
+      });
+    }
   }
 
   FortuneItem fortuneItemBuilder(
