@@ -354,72 +354,95 @@ class _PageSpinner extends State<PageSpinner> with TickerProviderStateMixin {
                                                     onTap: () {
                                                       spinAgain();
                                                     },
-                                                    child: Visibility(
-                                                      visible: true,
+                                                    child: Transform.scale(
+                                                      scale:
+                                                          _scaleAnimationController
+                                                              .value,
                                                       child: Center(
                                                         child: Container(
-                                                          child:
-                                                              Transform.scale(
-                                                            scale:
-                                                                _scaleAnimationController
-                                                                    .value,
-                                                            child: Container(
-                                                              width:
-                                                                  screenWidth *
-                                                                      0.3,
-                                                              decoration:
-                                                                  BoxDecoration(
-                                                                color: AppColors
-                                                                    .orange,
-                                                                shape: BoxShape
-                                                                    .circle,
-                                                              ),
-                                                              child:
-                                                                  AspectRatio(
-                                                                aspectRatio:
-                                                                    1 / 1,
-                                                                child: Center(
-                                                                  child: Column(
-                                                                    mainAxisSize:
-                                                                        MainAxisSize
-                                                                            .min,
-                                                                    mainAxisAlignment:
-                                                                        MainAxisAlignment
-                                                                            .spaceEvenly,
-                                                                    children: [
-                                                                      SvgPicture
-                                                                          .asset(
-                                                                        MyAssets
-                                                                            .refreshSvg,
-                                                                        height: screenWidth *
-                                                                            0.15,
-                                                                      ),
-                                                                      AutoSizeText(
-                                                                        Strings
-                                                                            .spinAgain,
-                                                                        maxLines:
-                                                                            1,
-                                                                        maxFontSize:
-                                                                            14,
-                                                                        minFontSize:
-                                                                            7,
-                                                                        style:
-                                                                            TextStyle(
-                                                                          color:
-                                                                              Colors.black,
-                                                                          fontFamily:
-                                                                              Fonts.exo2Black,
-                                                                          fontSize:
-                                                                              14,
-                                                                          height:
-                                                                              1,
-                                                                        ),
-                                                                      ),
-                                                                    ],
-                                                                  ),
+                                                          width:
+                                                              screenWidth * 0.3,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: AppColors
+                                                                .orange,
+                                                            shape:
+                                                                BoxShape.circle,
+                                                          ),
+                                                          child: Stack(
+                                                            children: [
+                                                              Container(
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  color: AppColors
+                                                                      .buttonSeparator,
+                                                                  shape: BoxShape
+                                                                      .circle,
                                                                 ),
                                                               ),
-                                                            ),
+                                                              Container(
+                                                                margin: EdgeInsets
+                                                                    .only(
+                                                                        bottom:
+                                                                            4),
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  color: AppColors
+                                                                      .orange,
+                                                                  shape: BoxShape
+                                                                      .circle,
+                                                                  gradient:
+                                                                      LinearGradient(
+                                                                          colors: [
+                                                                        AppColors.gradientStartColor,
+                                                                        AppColors.gradientMidColor,
+                                                                        AppColors.gradientEndColor,
+                                                                      ],
+                                                                      ),
+                                                                ),
+                                                              ),
+                                                              Center(
+                                                                child: Column(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .min,
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .spaceEvenly,
+                                                                  children: [
+                                                                    SvgPicture
+                                                                        .asset(
+                                                                      MyAssets
+                                                                          .refreshSvg,
+                                                                      height:
+                                                                          screenWidth *
+                                                                              0.15,
+                                                                    ),
+                                                                    AutoSizeText(
+                                                                      Strings
+                                                                          .spinAgain,
+                                                                      maxLines:
+                                                                          1,
+                                                                      maxFontSize:
+                                                                          14,
+                                                                      minFontSize:
+                                                                          7,
+                                                                      style:
+                                                                          TextStyle(
+                                                                        color: Colors
+                                                                            .black,
+                                                                        fontFamily:
+                                                                            Fonts.exo2Black,
+                                                                        fontSize:
+                                                                            14,
+                                                                        height:
+                                                                            1,
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            ],
                                                           ),
                                                         ),
                                                       ),
