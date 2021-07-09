@@ -41,6 +41,7 @@ dependencies:
   animator: ^3.1.0
   flutter_animation_set: ^0.0.4
   lottie: ^1.0.1
+  device_info: ^2.0.2
 
 dev_dependencies:
   flutter_test:

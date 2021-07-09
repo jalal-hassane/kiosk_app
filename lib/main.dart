@@ -1,9 +1,11 @@
+import 'dart:collection';
 import 'dart:ui';
 
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:kiosk_app/Device.dart';
 import 'package:kiosk_app/MyAssets.dart';
 import 'package:kiosk_app/MyColors.dart';
 import 'package:kiosk_app/MyFonts.dart';
@@ -50,7 +52,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       routes: {
-       /* '/landing': (BuildContext context) => PageHome(
+        /* '/landing': (BuildContext context) => PageHome(
               title: 'Home',
             ),*/
         '/info': (BuildContext context) => PageInfo(
@@ -98,11 +100,25 @@ class PageHome extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<PageHome> {
+
+  late HashMap<String,String> mDevice;
   void navigateTo() {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => PageInfo(title: 'Info')),
     );
+  }
+
+  void _getDeviceInfo() async {
+    final device = await Device.getDeviceDetails();
+    mDevice = device;
+    print("Device $device");
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _getDeviceInfo();
   }
 
   @override
@@ -113,6 +129,8 @@ class _MyHomePageState extends State<PageHome> {
         MediaQuery.of(context).size.width; // device screen width
     final statusBarHeight = MediaQuery.of(context).padding.top;
 
+    // todo add will pop scope to all pages
+
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     //
@@ -121,97 +139,110 @@ class _MyHomePageState extends State<PageHome> {
     // than having to individually change instances of widgets.
     return Scaffold(
       backgroundColor: Colors.transparent,
-      body: SafeArea(
-        child: Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage(MyAssets.backgroundHome),
-              fit: BoxFit.fill,
-            ),
-          ),
-          child: Column(
-            children: <Widget>[
-              Flexible(
-                flex: 5,
+      body: FutureBuilder<HashMap<String,String>>(
+        future: Device.getDeviceDetails(),
+        builder:(context,snapshot){
+          if(snapshot.hasData){
+            mDevice = snapshot.requireData;
+            print("mDevice $mDevice");
+          }
+            return snapshot.hasData? WillPopScope(
+              onWillPop: () async => false,
+              child: SafeArea(
                 child: Container(
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage(MyAssets.backgroundHome),
+                      fit: BoxFit.fill,
+                    ),
+                  ),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Container(
-                        child: SvgPicture.asset(
-                          MyAssets.megaSvg,
-                          width: screenWidth * 0.8,
-                          fit: BoxFit.contain,
+                      Flexible(
+                        flex: 5,
+                        child: Container(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Container(
+                                child: SvgPicture.asset(
+                                  MyAssets.megaSvg,
+                                  width: screenWidth * 0.8,
+                                  fit: BoxFit.contain,
+                                ),
+                              ),
+                              Container(
+                                width: screenWidth * 0.8,
+                                height: screenHeight * 0.08,
+                                alignment: Alignment.center,
+                                child: Text(
+                                  Strings.homeStartSpin,
+                                  maxLines: 1,
+                                  style: TextStyle(
+                                    fontFamily: Fonts.exo2Black,
+                                    color: Colors.white,
+                                    fontSize: 14,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                      Container(
-                        width: screenWidth * 0.8,
-                        height: screenHeight * 0.08,
-                        alignment: Alignment.center,
-                        child: Text(
-                          Strings.homeStartSpin,
-                          maxLines: 1,
-                          style: TextStyle(
-                            fontFamily: Fonts.exo2Black,
-                            color: Colors.white,
-                            fontSize: 14,
+                      Flexible(
+                        flex: 3,
+                        child: GestureDetector(
+                          onTap: navigateTo,
+                          child: Container(
+                            width: double.infinity,
+                            child: Column(
+                              children: <Widget>[
+                                Stack(
+                                  //clipBehavior: Clip.hardEdge,
+                                  children: [
+                                    Image.asset(
+                                      MyAssets.imagePlayWithShadow,
+                                      width: screenWidth / 2.8,
+                                      fit: BoxFit.contain,
+                                    ),
+                                    Shimmer.fromColors(
+                                        child: Image.asset(
+                                          MyAssets.imagePlayWithShadow,
+                                          width: screenWidth / 2.8,
+                                          fit: BoxFit.contain,
+                                        ),
+                                        period: Duration(milliseconds: 1000),
+                                        baseColor: AppColors.transparentWhite10,
+                                        highlightColor: Colors.white),
+                                  ],
+                                ),
+                                Container(
+                                  width: screenWidth * 0.8,
+                                  child: Text(
+                                    Strings.touchToStart,
+                                    maxLines: 3,
+                                    style: TextStyle(
+                                      fontFamily: Fonts.exo2Black,
+                                      color: AppColors.shinyYellow,
+                                      fontSize: 16,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                          textAlign: TextAlign.center,
                         ),
                       ),
                     ],
                   ),
                 ),
               ),
-              Flexible(
-                flex: 3,
-                child: GestureDetector(
-                  onTap: navigateTo,
-                  child: Container(
-                    width: double.infinity,
-                    child: Column(
-                      children: <Widget>[
-                        Stack(
-                          //clipBehavior: Clip.hardEdge,
-                          children: [
-                            Image.asset(
-                              MyAssets.imagePlayWithShadow,
-                              width: screenWidth / 2.8,
-                              fit: BoxFit.contain,
-                            ),
-                            Shimmer.fromColors(
-                                child: Image.asset(
-                                  MyAssets.imagePlayWithShadow,
-                                  width: screenWidth / 2.8,
-                                  fit: BoxFit.contain,
-                                ),
-                                period: Duration(milliseconds: 1000),
-                                baseColor: AppColors.transparentWhite10,
-                                highlightColor: Colors.white),
-                          ],
-                        ),
-                        Container(
-                          width: screenWidth * 0.8,
-                          child: Text(
-                            Strings.touchToStart,
-                            maxLines: 3,
-                            style: TextStyle(
-                              fontFamily: Fonts.exo2Black,
-                              color: AppColors.shinyYellow,
-                              fontSize: 16,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
+            ):Center();
+        }
       ),
+
     );
   }
 }
