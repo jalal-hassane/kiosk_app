@@ -191,7 +191,7 @@ class _PageReward extends State<PageReward> with TickerProviderStateMixin {
                                                   child: AutoSizeText(
                                                     mPrizes[index],
                                                     textAlign: TextAlign.center,
-                                                    maxLines: 3,
+                                                    maxLines: 2,
                                                     maxFontSize: 18,
                                                     minFontSize: 7,
                                                     style: TextStyle(
