@@ -123,9 +123,9 @@ class _PageSpinner extends State<PageSpinner> with TickerProviderStateMixin {
       context,
       MaterialPageRoute(
           builder: (context) => PageReward(
-            title: 'Page Reward',
-            prizes: hasWon,
-          )),
+                title: 'Page Reward',
+                prizes: hasWon,
+              )),
     );
   }
 
@@ -260,7 +260,7 @@ class _PageSpinner extends State<PageSpinner> with TickerProviderStateMixin {
                                           height: screenHeight * 0.1,
                                           decoration: BoxDecoration(
                                             color:
-                                            AppColors.spinnerTipBackground,
+                                                AppColors.spinnerTipBackground,
                                             shape: BoxShape.circle,
                                           ),
                                         ),
@@ -289,7 +289,7 @@ class _PageSpinner extends State<PageSpinner> with TickerProviderStateMixin {
                                                     absorbing: rootDisabled,
                                                     child: Container(
                                                       margin:
-                                                      EdgeInsets.all(22),
+                                                          EdgeInsets.all(22),
                                                       child: FortuneWheel(
                                                         duration: Duration(
                                                           seconds: 5,
@@ -304,7 +304,7 @@ class _PageSpinner extends State<PageSpinner> with TickerProviderStateMixin {
                                                             alignment: Alignment
                                                                 .center,
                                                             child:
-                                                            FractionallySizedBox(
+                                                                FractionallySizedBox(
                                                               heightFactor: 0.1,
                                                               child: SvgPicture
                                                                   .asset(
@@ -318,12 +318,12 @@ class _PageSpinner extends State<PageSpinner> with TickerProviderStateMixin {
                                                         ],
                                                         animateFirst: true,
                                                         physics:
-                                                        CircularPanPhysics(
+                                                            CircularPanPhysics(
                                                           duration: Duration(
                                                             seconds: 1,
                                                           ),
                                                           curve:
-                                                          Curves.decelerate,
+                                                              Curves.decelerate,
                                                         ),
                                                         onAnimationStart: () {
                                                           //start the sound
@@ -336,15 +336,15 @@ class _PageSpinner extends State<PageSpinner> with TickerProviderStateMixin {
                                                         //selected: Stream.value(0),
                                                         items: [
                                                           for (int i = 0;
-                                                          i <
-                                                              prizeList
-                                                                  .length;
-                                                          i++)
+                                                              i <
+                                                                  prizeList
+                                                                      .length;
+                                                              i++)
                                                             fortuneItemBuilder(
                                                               prize:
-                                                              prizeList[i],
+                                                                  prizeList[i],
                                                               color:
-                                                              colorList[i],
+                                                                  colorList[i],
                                                             ),
                                                         ],
                                                       ),
@@ -355,117 +355,116 @@ class _PageSpinner extends State<PageSpinner> with TickerProviderStateMixin {
                                                       spinAgain();
                                                     },
                                                     child: Center(
-                                                      child:
-                                                      Animator<double>(
+                                                      child: Animator<double>(
                                                         duration: Duration(
                                                           milliseconds: 500,
                                                         ),
                                                         statusListener:
-                                                            (status,
-                                                            state) {},
+                                                            (status, state) {},
                                                         animatorKey:
-                                                        animatorKey,
+                                                            animatorKey,
                                                         tween: _tween,
                                                         curve: Curves
                                                             .fastOutSlowIn,
-                                                        triggerOnInit:
-                                                        false,
+                                                        triggerOnInit: false,
                                                         builder: (_,
-                                                            animationState,
-                                                            __) =>
+                                                                animationState,
+                                                                __) =>
                                                             Transform.scale(
-                                                              scale:
-                                                              animationState
-                                                                  .value,
-                                                              child: Center(
-                                                                child: Container(
-                                                                  width:
-                                                                  screenWidth * 0.3,
-                                                                  decoration:
+                                                          scale: animationState
+                                                              .value,
+                                                          child: Center(
+                                                            child: Container(
+                                                              width:
+                                                                  screenWidth *
+                                                                      0.3,
+                                                              decoration:
                                                                   BoxDecoration(
-                                                                    color: AppColors
-                                                                        .orange,
-                                                                    shape:
-                                                                    BoxShape.circle,
+                                                                color: AppColors
+                                                                    .orange,
+                                                                shape: BoxShape
+                                                                    .circle,
+                                                              ),
+                                                              child: Stack(
+                                                                children: [
+                                                                  Container(
+                                                                    decoration:
+                                                                        BoxDecoration(
+                                                                      color: AppColors
+                                                                          .buttonSeparator,
+                                                                      shape: BoxShape
+                                                                          .circle,
+                                                                    ),
                                                                   ),
-                                                                  child: Stack(
-                                                                    children: [
-                                                                      Container(
-                                                                        decoration:
-                                                                        BoxDecoration(
-                                                                          color: AppColors
-                                                                              .buttonSeparator,
-                                                                          shape: BoxShape
-                                                                              .circle,
-                                                                        ),
-                                                                      ),
-                                                                      Container(
-                                                                        margin: EdgeInsets
-                                                                            .only(
-                                                                            bottom:
+                                                                  Container(
+                                                                    margin: EdgeInsets.only(
+                                                                        bottom:
                                                                             4),
-                                                                        decoration:
+                                                                    decoration:
                                                                         BoxDecoration(
-                                                                          color: AppColors
-                                                                              .orange,
-                                                                          shape: BoxShape
-                                                                              .circle,
-                                                                          gradient:
+                                                                      color: AppColors
+                                                                          .orange,
+                                                                      shape: BoxShape
+                                                                          .circle,
+                                                                      gradient:
                                                                           LinearGradient(
-                                                                            colors: [
-                                                                              AppColors.gradientStartColor,
-                                                                              AppColors.gradientMidColor,
-                                                                              AppColors.gradientEndColor,
-                                                                            ],
-                                                                          ),
-                                                                        ),
+                                                                        colors: [
+                                                                          AppColors
+                                                                              .gradientStartColor,
+                                                                          AppColors
+                                                                              .gradientMidColor,
+                                                                          AppColors
+                                                                              .gradientEndColor,
+                                                                        ],
                                                                       ),
-                                                                      Center(
-                                                                        child: Column(
-                                                                          mainAxisSize:
+                                                                    ),
+                                                                  ),
+                                                                  Center(
+                                                                    child:
+                                                                        Column(
+                                                                      mainAxisSize:
                                                                           MainAxisSize
                                                                               .min,
-                                                                          mainAxisAlignment:
+                                                                      mainAxisAlignment:
                                                                           MainAxisAlignment
                                                                               .spaceEvenly,
-                                                                          children: [
-                                                                            SvgPicture
-                                                                                .asset(
-                                                                              MyAssets
-                                                                                  .refreshSvg,
-                                                                              height:
-                                                                              screenWidth *
-                                                                                  0.15,
-                                                                            ),
-                                                                            AutoSizeText(
-                                                                              Strings
-                                                                                  .spinAgain,
-                                                                              maxLines:
-                                                                              1,
-                                                                              maxFontSize:
-                                                                              14,
-                                                                              minFontSize:
-                                                                              7,
-                                                                              style:
-                                                                              TextStyle(
-                                                                                color: Colors
-                                                                                    .black,
-                                                                                fontFamily:
-                                                                                Fonts.exo2Black,
-                                                                                fontSize:
-                                                                                14,
-                                                                                height:
-                                                                                1,
-                                                                              ),
-                                                                            ),
-                                                                          ],
+                                                                      children: [
+                                                                        SvgPicture
+                                                                            .asset(
+                                                                          MyAssets
+                                                                              .refreshSvg,
+                                                                          height:
+                                                                              screenWidth * 0.15,
                                                                         ),
-                                                                      ),
-                                                                    ],
+                                                                        AutoSizeText(
+                                                                          Strings
+                                                                              .spinAgain,
+                                                                          maxLines:
+                                                                              1,
+                                                                          maxFontSize:
+                                                                              14,
+                                                                          minFontSize:
+                                                                              7,
+                                                                          style:
+                                                                              TextStyle(
+                                                                            color:
+                                                                                Colors.black,
+                                                                            fontFamily:
+                                                                                Fonts.exo2Black,
+                                                                            fontSize:
+                                                                                14,
+                                                                            height:
+                                                                                1,
+                                                                          ),
+                                                                        ),
+                                                                      ],
+                                                                    ),
                                                                   ),
-                                                                ),
+                                                                ],
                                                               ),
                                                             ),
+                                                          ),
+                                                        ),
                                                       ),
                                                     ),
                                                   ),
@@ -684,11 +683,11 @@ class _PageSpinner extends State<PageSpinner> with TickerProviderStateMixin {
     } else {
       setState(() {
         animatorKey.controller.forward().whenComplete(() => {
-          animatorKey.controller.animateBack(
-            0.6,
-            duration: Duration(milliseconds: 300),
-          )
-        });
+              animatorKey.controller.animateBack(
+                0.6,
+                duration: Duration(milliseconds: 300),
+              )
+            });
         //todo remove this absorber later
         rootDisabled = false;
       });
