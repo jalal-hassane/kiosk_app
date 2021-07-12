@@ -23,4 +23,11 @@ class Draw {
 
   @JsonKey(name: "date")
   String? date = "";
+
+  Draw fromJson(Map<String, dynamic> json){
+    return _$DrawFromJson(json);
+  }
+  Map<String, dynamic> toJson1(Draw instance){
+    return _$DrawToJson(instance);
+  }
 }
