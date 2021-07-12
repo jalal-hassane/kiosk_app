@@ -174,10 +174,12 @@ class _PageReward extends State<PageReward> with TickerProviderStateMixin {
                                                 : mPrizes.length,
                                             primary: false,
                                             shrinkWrap: true,
+                                            childAspectRatio: getChildAspectRatio(mPrizes.length),
                                             padding: const EdgeInsets.all(5),
                                             children: List.generate(
                                                 mPrizes.length, (index) {
                                               return Container(
+                                                padding: EdgeInsets.all(2),
                                                 margin: EdgeInsets.only(
                                                     right: 5,
                                                     top: 5,
@@ -278,5 +280,12 @@ class _PageReward extends State<PageReward> with TickerProviderStateMixin {
         ),
       ),
     );
+  }
+
+  double getChildAspectRatio(int size){
+    if(size==1) return 4.0;
+    if(size==2) return 2.0;
+    if(size==3) return 1.5;
+    return 1.0;
   }
 }

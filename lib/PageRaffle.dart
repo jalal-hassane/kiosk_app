@@ -813,16 +813,24 @@ class _PageRaffle extends State<PageRaffle> {
     setState(() {
       switch (type) {
         case '1000':
-          counter1000++;
-          balance -= 1000;
+          if (balance >= 1000) {
+            counter1000++;
+            balance -= 1000;
+          }
+
           break;
         case '500':
-          counter500++;
-          balance -= 500;
+          if (balance >= 500) {
+            counter500++;
+            balance -= 500;
+          }
+
           break;
         default:
-          counter250++;
-          balance -= 250;
+          if (balance >= 250) {
+            counter250++;
+            balance -= 250;
+          }
       }
       checkForAvailableBalance();
       if (counter250 > 0 || counter500 > 0 || counter1000 > 0)
@@ -838,16 +846,22 @@ class _PageRaffle extends State<PageRaffle> {
     setState(() {
       switch (type) {
         case '1000':
-          counter1000--;
-          balance += 1000;
+          if (counter1000 > 0) {
+            counter1000--;
+            balance += 1000;
+          }
           break;
         case '500':
-          counter500--;
-          balance += 500;
+          if (counter500 > 0) {
+            counter500--;
+            balance += 500;
+          }
           break;
         default:
-          counter250--;
-          balance += 250;
+          if (counter250 > 0) {
+            counter250--;
+            balance += 250;
+          }
       }
       checkForAvailableBalance();
       if (counter250 > 0 || counter500 > 0 || counter1000 > 0)
@@ -859,22 +873,10 @@ class _PageRaffle extends State<PageRaffle> {
   }
 
   void checkForAvailableBalance() {
-    if (balance <= 0) {
-      absorbingPlus1000 = true;
-      absorbingPlus500 = true;
-      absorbingPlus250 = true;
-    } else {
-      if (balance <= 250)
-        absorbingPlus250 = false;
-      else if (balance <= 500) {
-        absorbingPlus250 = false;
-        absorbingPlus500 = false;
-      } else {
-        absorbingPlus1000 = false;
-        absorbingPlus500 = false;
-        absorbingPlus250 = false;
-      }
-    }
+    absorbingPlus1000 = !(balance >= 1000);
+    absorbingPlus500 = !(balance >= 500);
+    absorbingPlus250 = !(balance >= 250);
+
     absorbingMinus250 = counter250 <= 0;
     absorbingMinus500 = counter500 <= 0;
     absorbingMinus1000 = counter1000 <= 0;
