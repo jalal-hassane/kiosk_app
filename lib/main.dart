@@ -19,7 +19,9 @@ import 'package:kiosk_app/ui/PageInfo.dart';
 import 'package:kiosk_app/ui/PageRaffle.dart';
 import 'package:kiosk_app/ui/PageSpinCount.dart';
 import 'package:kiosk_app/ui/PageSpinner.dart';
+import 'package:retrofit/dio.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:dio/dio.dart';
 
 import 'custom/MyCustomChild.dart';
 import 'ui/PageReward.dart';
@@ -343,10 +345,16 @@ class _MyHomePageState extends State<PageHome> {
     String id = mDevice['identifier'].toString();
     print("My device id is $id");
     //commo
-    final client = ApiService();
+    final dio = Dio();
+    final op = Options();
+    final client = ApiService(dio);
     print("Client $client");
     final commonReq = CommonRequest(false);
+    op.headers = commonReq.headerFields;
     commonReq.bodyFields[CommonRequest.DEVICE_ID] = id;
     print("Common $commonReq");
+    client.authenticateDevice(op, commonReq.bodyFields).then((it) =>
+       print("Response $it")
+    );
   }
 }

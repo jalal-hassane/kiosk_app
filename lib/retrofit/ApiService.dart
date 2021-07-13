@@ -37,41 +37,41 @@ abstract class ApiService {
   @FormUrlEncoded()
   @POST(API_AUTHENTICATE_DEVICE)
   Future<AuthenticationResponse> authenticateDevice(
-      @Headers() Map<String, String> headers,
+  @DioOptions() Options options,
       @Body() Map<String, String> fields,);
 
   @FormUrlEncoded()
   @POST(API_GET_SPINNER_DATA)
   Future<SpinnerDataResponse> getSpinnerData(
-      @Headers() Map<String, String> headers,
+      @DioOptions() Options options,
       @Body() Map<String, String> fields,);
 
   @FormUrlEncoded()
   @POST(API_SAVE_SPIN_PRIZE)
   Future<SaveSpinPrizeResponse> saveSpinPrize(
-      @Headers() Map<String, String> headers,
+      @DioOptions() Options options,
       @Body() Map<String, String> fields,);
 
   @FormUrlEncoded()
   @POST(API_TRANSACTION_UPDATE)
   Future<UpdateTransactionResponse> updateTransaction(
-      @Headers() Map<String, String> headers,
+      @DioOptions() Options options,
       @Body() Map<String, String> fields,);
 
   @FormUrlEncoded()
   @POST(API_SAVE_DRAWS)
   Future<SaveSelectedDrawsResponse> saveDraws(
-      @Headers() Map<String, String> headers,
+      @DioOptions() Options options,
       @Body() Map<String, String> fields,);
 
   @FormUrlEncoded()
   @POST(API_GET_TRANSACTION)
   Future<TransactionResponse> getTransaction(
-      @Headers() Map<String, String> headers,);
+      @DioOptions() Options options,);
 
   @FormUrlEncoded()
   @POST(API_GET_APP_TEXTS)
-  Future<AppTextsResponse> getAppTexts(@Headers() Map<String, String> headers,);
+  Future<AppTextsResponse> getAppTexts(@DioOptions() Options options,);
 
 }
 

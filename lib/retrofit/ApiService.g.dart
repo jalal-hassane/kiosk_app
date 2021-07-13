@@ -30,7 +30,7 @@ class _ApiService implements ApiService {
             .compose(_dio.options, 'device/authenticate',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = AuthenticationResponse.fromJson(_result.data!);
+    final value = AuthenticationResponse().fromJson(_result.data!);
     return value;
   }
 
@@ -49,7 +49,7 @@ class _ApiService implements ApiService {
             .compose(_dio.options, 'spinner/items',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = SpinnerDataResponse.fromJson(_result.data!);
+    final value = SpinnerDataResponse().fromJson(_result.data!);
     return value;
   }
 
@@ -68,7 +68,7 @@ class _ApiService implements ApiService {
             .compose(_dio.options, 'spinner/set_winner',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = SaveSpinPrizeResponse.fromJson(_result.data!);
+    final value = SaveSpinPrizeResponse().fromJson(_result.data!);
     return value;
   }
 
@@ -87,7 +87,7 @@ class _ApiService implements ApiService {
             .compose(_dio.options, 'transaction/update',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = UpdateTransactionResponse.fromJson(_result.data!);
+    final value = UpdateTransactionResponse().fromJson(_result.data!);
     return value;
   }
 
@@ -106,7 +106,7 @@ class _ApiService implements ApiService {
             .compose(_dio.options, 'transaction/save-draws',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = SaveSelectedDrawsResponse.fromJson(_result.data!);
+    final value = SaveSelectedDrawsResponse().fromJson(_result.data!);
     return value;
   }
 
@@ -124,7 +124,7 @@ class _ApiService implements ApiService {
             .compose(_dio.options, 'transaction/get-transaction',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = TransactionResponse.fromJson(_result.data!);
+    final value = TransactionResponse().fromJson(_result.data!);
     return value;
   }
 
@@ -142,7 +142,7 @@ class _ApiService implements ApiService {
             .compose(_dio.options, 'device/app-text',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = AppTextsResponse.fromJson(_result.data!);
+    final value = AppTextsResponse().fromJson(_result.data!);
     return value;
   }
 
