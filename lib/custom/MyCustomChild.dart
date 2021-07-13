@@ -2,12 +2,12 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:kiosk_app/MyAssets.dart';
-import 'package:kiosk_app/MyTexts.dart';
+import 'package:kiosk_app/custom/MyAssets.dart';
+import 'package:kiosk_app/custom/MyStyles.dart';
+import 'package:kiosk_app/custom/MyTexts.dart';
 
 import 'MyColors.dart';
 import 'MyFonts.dart';
-import 'MyStyles.dart';
 
 class CustomChild {
   static TextField infoPageInputText({
@@ -139,8 +139,6 @@ class CustomChild {
       ),
     );
   }
-
-
 
   static Container howToPlayText(String text, {double width = 0}) {
     return Container(

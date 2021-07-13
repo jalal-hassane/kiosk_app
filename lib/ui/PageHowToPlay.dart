@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:kiosk_app/MyAssets.dart';
-import 'package:kiosk_app/MyCustomChild.dart';
-import 'package:kiosk_app/PageSpinCount.dart';
+import 'package:kiosk_app/custom/MyAssets.dart';
+import 'package:kiosk_app/custom/MyCustomChild.dart';
+import 'package:kiosk_app/ui/PageSpinCount.dart';
 
+import '../custom/MyFonts.dart';
+import '../custom/MyTexts.dart';
+import '../ui/LayoutTriangles.dart';
 import 'LayoutTop.dart';
-import 'LayoutTriangles.dart';
-import 'MyFonts.dart';
-import 'MyTexts.dart';
 
 class PageHowToPlay extends StatefulWidget {
   PageHowToPlay({Key? key, required this.title}) : super(key: key);

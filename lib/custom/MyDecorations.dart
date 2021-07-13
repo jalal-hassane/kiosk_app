@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:kiosk_app/MyColors.dart';
+
+import 'MyColors.dart';
 
 class Decorations {
   static const rounded8WhiteBackground = BoxDecoration(

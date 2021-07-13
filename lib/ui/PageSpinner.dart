@@ -8,15 +8,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_fortune_wheel/flutter_fortune_wheel.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:kiosk_app/PageReward.dart';
+import 'package:kiosk_app/ui/PageReward.dart';
 
+import '../custom/MyAssets.dart';
+import '../custom/MyColors.dart';
+import '../custom/MyFonts.dart';
+import '../custom/MyStyles.dart';
+import '../custom/MyTexts.dart';
 import 'LayoutTop.dart';
 import 'LayoutTriangles.dart';
-import 'MyAssets.dart';
-import 'MyColors.dart';
-import 'MyFonts.dart';
-import 'MyStyles.dart';
-import 'MyTexts.dart';
 
 class PageSpinner extends StatefulWidget {
   PageSpinner({Key? key, required this.title, required this.count})

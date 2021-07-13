@@ -2,16 +2,16 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:kiosk_app/MyColors.dart';
-import 'package:kiosk_app/MyDecorations.dart';
-import 'package:kiosk_app/MyFonts.dart';
-import 'package:kiosk_app/MyTexts.dart';
-import 'package:kiosk_app/PageSpinner.dart';
+import 'package:kiosk_app/custom/MyColors.dart';
+import 'package:kiosk_app/custom/MyDecorations.dart';
+import 'package:kiosk_app/custom/MyFonts.dart';
+import 'package:kiosk_app/custom/MyTexts.dart';
+import 'package:kiosk_app/ui/PageSpinner.dart';
 
+import '../custom/MyAssets.dart';
+import '../custom/MyCustomChild.dart';
 import 'LayoutTop.dart';
 import 'LayoutTriangles.dart';
-import 'MyAssets.dart';
-import 'MyCustomChild.dart';
 
 class PageRaffle extends StatefulWidget {
   PageRaffle({Key? key, required this.title}) : super(key: key);

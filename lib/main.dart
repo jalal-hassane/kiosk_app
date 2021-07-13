@@ -6,20 +6,22 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:kiosk_app/Device.dart';
-import 'package:kiosk_app/MyAssets.dart';
-import 'package:kiosk_app/MyColors.dart';
-import 'package:kiosk_app/MyFonts.dart';
-import 'package:kiosk_app/MyTexts.dart';
-import 'package:kiosk_app/PageHowToPlay.dart';
-import 'package:kiosk_app/PageInfo.dart';
-import 'package:kiosk_app/PageRaffle.dart';
-import 'package:kiosk_app/PageSpinCount.dart';
-import 'package:kiosk_app/PageSpinner.dart';
+import 'package:kiosk_app/custom/MyAssets.dart';
+import 'package:kiosk_app/custom/MyColors.dart';
+import 'package:kiosk_app/custom/MyFonts.dart';
+import 'package:kiosk_app/custom/MyTexts.dart';
+import 'package:kiosk_app/local/LocalStorage.dart';
+import 'package:kiosk_app/ui/PageHowToPlay.dart';
+import 'package:kiosk_app/ui/PageInfo.dart';
+import 'package:kiosk_app/ui/PageRaffle.dart';
+import 'package:kiosk_app/ui/PageSpinCount.dart';
+import 'package:kiosk_app/ui/PageSpinner.dart';
 import 'package:shimmer/shimmer.dart';
 
-import 'PageReward.dart';
+import 'ui/PageReward.dart';
 
 void main() {
+  LocalStorage();
   runApp(
     DevicePreview(
       enabled: true,
@@ -100,8 +102,8 @@ class PageHome extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<PageHome> {
+  late HashMap<String, String> mDevice;
 
-  late HashMap<String,String> mDevice;
   void navigateTo() {
     Navigator.push(
       context,
@@ -139,110 +141,112 @@ class _MyHomePageState extends State<PageHome> {
     // than having to individually change instances of widgets.
     return Scaffold(
       backgroundColor: Colors.transparent,
-      body: FutureBuilder<HashMap<String,String>>(
-        future: Device.getDeviceDetails(),
-        builder:(context,snapshot){
-          if(snapshot.hasData){
-            mDevice = snapshot.requireData;
-            print("mDevice $mDevice");
-          }
-            return snapshot.hasData? WillPopScope(
-              onWillPop: () async => false,
-              child: SafeArea(
-                child: Container(
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage(MyAssets.backgroundHome),
-                      fit: BoxFit.fill,
-                    ),
-                  ),
-                  child: Column(
-                    children: <Widget>[
-                      Flexible(
-                        flex: 5,
-                        child: Container(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Container(
-                                child: SvgPicture.asset(
-                                  MyAssets.megaSvg,
-                                  width: screenWidth * 0.8,
-                                  fit: BoxFit.contain,
-                                ),
-                              ),
-                              Container(
-                                width: screenWidth * 0.8,
-                                height: screenHeight * 0.08,
-                                alignment: Alignment.center,
-                                child: Text(
-                                  Strings.homeStartSpin,
-                                  maxLines: 1,
-                                  style: TextStyle(
-                                    fontFamily: Fonts.exo2Black,
-                                    color: Colors.white,
-                                    fontSize: 14,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                            ],
+      body: FutureBuilder<HashMap<String, String>>(
+          future: Device.getDeviceDetails(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              mDevice = snapshot.requireData;
+              print("mDevice $mDevice");
+            }
+            return snapshot.hasData
+                ? WillPopScope(
+                    onWillPop: () async => false,
+                    child: SafeArea(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage(MyAssets.backgroundHome),
+                            fit: BoxFit.fill,
                           ),
                         ),
-                      ),
-                      Flexible(
-                        flex: 3,
-                        child: GestureDetector(
-                          onTap: navigateTo,
-                          child: Container(
-                            width: double.infinity,
-                            child: Column(
-                              children: <Widget>[
-                                Stack(
-                                  //clipBehavior: Clip.hardEdge,
-                                  children: [
-                                    Image.asset(
-                                      MyAssets.imagePlayWithShadow,
-                                      width: screenWidth / 2.8,
-                                      fit: BoxFit.contain,
+                        child: Column(
+                          children: <Widget>[
+                            Flexible(
+                              flex: 5,
+                              child: Container(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Container(
+                                      child: SvgPicture.asset(
+                                        MyAssets.megaSvg,
+                                        width: screenWidth * 0.8,
+                                        fit: BoxFit.contain,
+                                      ),
                                     ),
-                                    Shimmer.fromColors(
-                                        child: Image.asset(
-                                          MyAssets.imagePlayWithShadow,
-                                          width: screenWidth / 2.8,
-                                          fit: BoxFit.contain,
+                                    Container(
+                                      width: screenWidth * 0.8,
+                                      height: screenHeight * 0.08,
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        Strings.homeStartSpin,
+                                        maxLines: 1,
+                                        style: TextStyle(
+                                          fontFamily: Fonts.exo2Black,
+                                          color: Colors.white,
+                                          fontSize: 14,
                                         ),
-                                        period: Duration(milliseconds: 1000),
-                                        baseColor: AppColors.transparentWhite10,
-                                        highlightColor: Colors.white),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
                                   ],
                                 ),
-                                Container(
-                                  width: screenWidth * 0.8,
-                                  child: Text(
-                                    Strings.touchToStart,
-                                    maxLines: 3,
-                                    style: TextStyle(
-                                      fontFamily: Fonts.exo2Black,
-                                      color: AppColors.shinyYellow,
-                                      fontSize: 16,
-                                    ),
-                                    textAlign: TextAlign.center,
+                              ),
+                            ),
+                            Flexible(
+                              flex: 3,
+                              child: GestureDetector(
+                                onTap: navigateTo,
+                                child: Container(
+                                  width: double.infinity,
+                                  child: Column(
+                                    children: <Widget>[
+                                      Stack(
+                                        //clipBehavior: Clip.hardEdge,
+                                        children: [
+                                          Image.asset(
+                                            MyAssets.imagePlayWithShadow,
+                                            width: screenWidth / 2.8,
+                                            fit: BoxFit.contain,
+                                          ),
+                                          Shimmer.fromColors(
+                                              child: Image.asset(
+                                                MyAssets.imagePlayWithShadow,
+                                                width: screenWidth / 2.8,
+                                                fit: BoxFit.contain,
+                                              ),
+                                              period:
+                                                  Duration(milliseconds: 1000),
+                                              baseColor:
+                                                  AppColors.transparentWhite10,
+                                              highlightColor: Colors.white),
+                                        ],
+                                      ),
+                                      Container(
+                                        width: screenWidth * 0.8,
+                                        child: Text(
+                                          Strings.touchToStart,
+                                          maxLines: 3,
+                                          style: TextStyle(
+                                            fontFamily: Fonts.exo2Black,
+                                            color: AppColors.shinyYellow,
+                                            fontSize: 16,
+                                          ),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              ],
+                              ),
                             ),
-                          ),
+                          ],
                         ),
                       ),
-                    ],
-                  ),
-                ),
-              ),
-            ):Center();
-        }
-      ),
-
+                    ),
+                  )
+                : Center();
+          }),
     );
   }
 }

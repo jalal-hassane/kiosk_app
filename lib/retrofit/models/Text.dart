@@ -120,10 +120,11 @@ class Text {
   @JsonKey(name: "spinner_result_finish_action")
   String spinnerResultFinishAction = "";
 
-  Text fromJson(Map<String, dynamic> json){
+  Text fromJson(Map<String, dynamic> json) {
     return _$TextFromJson(json);
   }
-  Map<String, dynamic> toJson1(Text instance){
+
+  Map<String, dynamic> toJson1(Text instance) {
     return _$TextToJson(instance);
   }
 }

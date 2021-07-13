@@ -1,17 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:kiosk_app/LayoutTop.dart';
-import 'package:kiosk_app/LayoutTriangles.dart';
-import 'package:kiosk_app/MyAssets.dart';
-import 'package:kiosk_app/MyColors.dart';
-import 'package:kiosk_app/MyCustomChild.dart';
-import 'package:kiosk_app/MyDecorations.dart';
-import 'package:kiosk_app/MyFonts.dart';
+import 'package:kiosk_app/custom/MyAssets.dart';
+import 'package:kiosk_app/custom/MyColors.dart';
+import 'package:kiosk_app/custom/MyCustomChild.dart';
+import 'package:kiosk_app/custom/MyDecorations.dart';
+import 'package:kiosk_app/custom/MyFonts.dart';
+import 'package:kiosk_app/ui/LayoutTop.dart';
+import 'package:kiosk_app/ui/LayoutTriangles.dart';
 import 'package:sprintf/sprintf.dart';
 
-import 'MyTexts.dart';
-import 'PageHowToPlay.dart';
+import '../custom/MyTexts.dart';
+import '../ui/PageHowToPlay.dart';
 
 class PageInfo extends StatefulWidget {
   PageInfo({Key? key, required this.title}) : super(key: key);

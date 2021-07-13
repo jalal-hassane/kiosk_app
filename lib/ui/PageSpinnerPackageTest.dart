@@ -7,8 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_fortune_wheel/flutter_fortune_wheel.dart';
 import 'package:flutter_svg/svg.dart';
 
-import 'MyAssets.dart';
-import 'MyStyles.dart';
+import '../custom/MyAssets.dart';
+import '../custom/MyStyles.dart';
 
 class PageSpinnerPackageTest extends StatefulWidget {
   PageSpinnerPackageTest({Key? key, required this.title}) : super(key: key);

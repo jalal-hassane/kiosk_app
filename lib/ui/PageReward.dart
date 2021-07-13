@@ -2,13 +2,13 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../custom/MyAssets.dart';
+import '../custom/MyColors.dart';
+import '../custom/MyCustomChild.dart';
+import '../custom/MyFonts.dart';
+import '../custom/MyTexts.dart';
 import 'LayoutTop.dart';
 import 'LayoutTriangles.dart';
-import 'MyAssets.dart';
-import 'MyColors.dart';
-import 'MyCustomChild.dart';
-import 'MyFonts.dart';
-import 'MyTexts.dart';
 
 class PageReward extends StatefulWidget {
   PageReward({Key? key, required this.title, required this.prizes})
@@ -86,8 +86,6 @@ class _PageReward extends State<PageReward> with TickerProviderStateMixin {
   void finishAndRestart() {
     Navigator.popUntil(context, ModalRoute.withName('/'));
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -174,7 +172,9 @@ class _PageReward extends State<PageReward> with TickerProviderStateMixin {
                                                 : mPrizes.length,
                                             primary: false,
                                             shrinkWrap: true,
-                                            childAspectRatio: getChildAspectRatio(mPrizes.length),
+                                            childAspectRatio:
+                                                getChildAspectRatio(
+                                                    mPrizes.length),
                                             padding: const EdgeInsets.all(5),
                                             children: List.generate(
                                                 mPrizes.length, (index) {
@@ -282,10 +282,10 @@ class _PageReward extends State<PageReward> with TickerProviderStateMixin {
     );
   }
 
-  double getChildAspectRatio(int size){
-    if(size==1) return 4.0;
-    if(size==2) return 2.0;
-    if(size==3) return 1.5;
+  double getChildAspectRatio(int size) {
+    if (size == 1) return 4.0;
+    if (size == 2) return 2.0;
+    if (size == 3) return 1.5;
     return 1.0;
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:kiosk_app/MyAssets.dart';
+import 'package:kiosk_app/custom/MyAssets.dart';
 
 class Triangles extends StatefulWidget {
   @override

@@ -1,11 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:kiosk_app/MyAssets.dart';
-import 'package:kiosk_app/MyColors.dart';
-import 'package:kiosk_app/MyFonts.dart';
-
-import 'MyTexts.dart';
+import 'package:kiosk_app/custom/MyAssets.dart';
+import 'package:kiosk_app/custom/MyColors.dart';
+import 'package:kiosk_app/custom/MyFonts.dart';
+import 'package:kiosk_app/custom/MyTexts.dart';
 
 class TopLayout extends StatefulWidget {
   bool helpIsVisible = false;

@@ -3,16 +3,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:kiosk_app/MyAssets.dart';
-import 'package:kiosk_app/PageRaffle.dart';
+import 'package:kiosk_app/custom/MyAssets.dart';
+import 'package:kiosk_app/ui/PageRaffle.dart';
 import 'package:sprintf/sprintf.dart';
 
+import '../custom/MyColors.dart';
+import '../custom/MyCustomChild.dart';
+import '../custom/MyFonts.dart';
+import '../custom/MyTexts.dart';
 import 'LayoutTop.dart';
 import 'LayoutTriangles.dart';
-import 'MyColors.dart';
-import 'MyCustomChild.dart';
-import 'MyFonts.dart';
-import 'MyTexts.dart';
 
 class PageSpinCount extends StatefulWidget {
   PageSpinCount({Key? key, required this.title}) : super(key: key);

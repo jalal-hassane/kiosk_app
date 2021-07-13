@@ -5,14 +5,12 @@ import 'package:kiosk_app/retrofit/responses/CommonResponse.dart';
 part 'AppTextsResponse.g.dart';
 
 @JsonSerializable()
-class AppTextsResponse extends CommonResponse{
-  @JsonKey(name:"payload")
+class AppTextsResponse extends CommonResponse {
+  @JsonKey(name: "payload")
   Payload? payload;
 
-
-
-  Text? getAppText(){
-  return payload?.appText;
+  Text? getAppText() {
+    return payload?.appText;
   }
 }
 

@@ -24,11 +24,11 @@ class Transaction {
   @JsonKey(name: "nb_of_spin")
   String? nbOfSpin = "";
 
-
-  Transaction fromJson(Map<String, dynamic> json){
+  Transaction fromJson(Map<String, dynamic> json) {
     return _$TransactionFromJson(json);
   }
-  Map<String, dynamic> toJson1(Transaction instance){
+
+  Map<String, dynamic> toJson1(Transaction instance) {
     return _$TransactionToJson(instance);
   }
 }

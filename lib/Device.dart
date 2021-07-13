@@ -10,6 +10,7 @@ class Device {
   var screenHeight = 0.0;
   var screenWidth = 0.0;
   double statusBarHeight = 0.0;
+  static var mDeviceInfo = HashMap<String, String>();
 
   Device(this.context);
 
@@ -19,42 +20,75 @@ class Device {
     statusBarHeight = MediaQuery.of(context).padding.top;
   }
 
-  static Future<HashMap<String,String>> getDeviceDetails() async {
-    final deviceInfo = HashMap<String,String>();
+  static Future<HashMap<String, String>> getDeviceDetails() async {
+    final deviceInfo = HashMap<String, String>();
     final DeviceInfoPlugin deviceInfoPlugin = new DeviceInfoPlugin();
     try {
       if (Platform.isAndroid) {
         var build = await deviceInfoPlugin.androidInfo;
-        deviceInfo.putIfAbsent('device', () => build.device);
-        deviceInfo.putIfAbsent('brand', () => build.brand);
-        deviceInfo.putIfAbsent('product', () => build.product);
-        deviceInfo.putIfAbsent('fingerprint', () => build.fingerprint);
-        deviceInfo.putIfAbsent('manufacturer', () => build.manufacturer);
-        deviceInfo.putIfAbsent('isPhysicalDevice', () => build.isPhysicalDevice.toString());
-        deviceInfo.putIfAbsent('display', () => build.display);
-        deviceInfo.putIfAbsent('model', () => build.model);
-        deviceInfo.putIfAbsent('versionInt', () => build.version.sdkInt.toString());
-        deviceInfo.putIfAbsent('versionBaseOs', () => build.version.baseOS.toString());
-        deviceInfo.putIfAbsent('versionCodeName', () => build.version.codename.toString());
-        deviceInfo.putIfAbsent('versionIncremental', () => build.version.incremental.toString());
-        deviceInfo.putIfAbsent('versionRelease', () => build.version.release.toString());
-        deviceInfo.putIfAbsent('versionPreviewSdkInt', () => build.version.previewSdkInt.toString());
-        deviceInfo.putIfAbsent('versionSecurityPatch', () => build.version.securityPatch.toString());
-        deviceInfo.putIfAbsent('identifier', () => build.androidId);
+        deviceInfo.putIfAbsent(_device, () => build.device);
+        deviceInfo.putIfAbsent(_brand, () => build.brand);
+        deviceInfo.putIfAbsent(_product, () => build.product);
+        deviceInfo.putIfAbsent(_fingerprint, () => build.fingerprint);
+        deviceInfo.putIfAbsent(_manufacturer, () => build.manufacturer);
+        deviceInfo.putIfAbsent(
+            _isPhysicalDevice, () => build.isPhysicalDevice.toString());
+        deviceInfo.putIfAbsent(_display, () => build.display);
+        deviceInfo.putIfAbsent(_model, () => build.model);
+        deviceInfo.putIfAbsent(
+            _versionInt, () => build.version.sdkInt.toString());
+        deviceInfo.putIfAbsent(
+            _versionBaseOs, () => build.version.baseOS.toString());
+        deviceInfo.putIfAbsent(
+            _versionCodeName, () => build.version.codename.toString());
+        deviceInfo.putIfAbsent(
+            _versionIncremental, () => build.version.incremental.toString());
+        deviceInfo.putIfAbsent(
+            _versionRelease, () => build.version.release.toString());
+        deviceInfo.putIfAbsent(_versionPreviewSdkInt,
+            () => build.version.previewSdkInt.toString());
+        deviceInfo.putIfAbsent(_versionSecurityPatch,
+            () => build.version.securityPatch.toString());
+        deviceInfo.putIfAbsent(_identifier, () => build.androidId);
       } else if (Platform.isIOS) {
         var data = await deviceInfoPlugin.iosInfo;
-        deviceInfo.putIfAbsent('device', () => data.name);
-        deviceInfo.putIfAbsent('isPhysicalDevice', () => data.isPhysicalDevice.toString());
-        deviceInfo.putIfAbsent('model', () => data.model);
-        deviceInfo.putIfAbsent('localizedModel', () => data.localizedModel);
-        deviceInfo.putIfAbsent('systemVersion', () => data.systemVersion.toString());
-        deviceInfo.putIfAbsent('systemName', () => data.systemName.toString());
-        deviceInfo.putIfAbsent('identifier', () => data.identifierForVendor);
+        deviceInfo.putIfAbsent(_device, () => data.name);
+        deviceInfo.putIfAbsent(
+            _isPhysicalDevice, () => data.isPhysicalDevice.toString());
+        deviceInfo.putIfAbsent(_model, () => data.model);
+        deviceInfo.putIfAbsent(_localizedModel, () => data.localizedModel);
+        deviceInfo.putIfAbsent(
+            _systemVersion, () => data.systemVersion.toString());
+        deviceInfo.putIfAbsent(_systemName, () => data.systemName.toString());
+        deviceInfo.putIfAbsent(_identifier, () => data.identifierForVendor);
       }
     } on PlatformException {
       print('Failed to get platform version');
     }
-
+    mDeviceInfo = deviceInfo;
     return deviceInfo;
   }
+
+  static final _device = 'device'; // _variableName make the variable private
+  static final device = 'device'; // this is a public variable
+  static final _brand = 'brand';
+  static final _product = 'product';
+  static final _fingerprint = 'fingerprint';
+  static final _manufacturer = 'manufacturer';
+  static final _isPhysicalDevice = 'isPhysicalDevice';
+  static final _display = 'display';
+  static final _model = 'model';
+  static final _versionInt = 'versionInt';
+  static final _versionBaseOs = 'versionBaseOs';
+  static final _versionCodeName = 'versionCodeName';
+  static final _versionIncremental = 'versionIncremental';
+  static final _versionRelease = 'versionRelease';
+  static final _versionPreviewSdkInt = 'versionPreviewSdkInt';
+  static final _versionSecurityPatch = 'versionSecurityPatch';
+  static final _identifier = 'identifier';
+
+  /// ios
+  static final _localizedModel = 'localizedModel';
+  static final _systemVersion = 'systemVersion';
+  static final _systemName = 'systemName';
 }
