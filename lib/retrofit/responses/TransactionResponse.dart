@@ -17,6 +17,14 @@ class TransactionResponse extends CommonResponse {
   List<Draw>? getDraws() {
     return payload?.draws;
   }
+
+  TransactionResponse fromJson(Map<String, dynamic> json) {
+    return _$TransactionResponseFromJson(json);
+  }
+
+  Map<String, dynamic> toJson1(TransactionResponse instance) {
+    return _$TransactionResponseToJson(instance);
+  }
 }
 
 @JsonSerializable()

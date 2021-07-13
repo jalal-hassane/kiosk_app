@@ -6,12 +6,17 @@ import 'package:kiosk_app/retrofit/responses/SpinnerDataResponse.dart';
 import 'package:kiosk_app/retrofit/responses/TransactionResponse.dart';
 import 'package:kiosk_app/retrofit/responses/UpdateTransactionResponse.dart';
 import 'package:retrofit/retrofit.dart';
+import 'package:dio/dio.dart';
+
+part 'ApiService.g.dart';
+
+//class Service{}
 
 @RestApi(baseUrl: "http://35.188.81.45//api/")
 abstract class ApiService {
-  factory ApiService() {
-    return ApiService();
-  }
+  factory ApiService(Dio dio, {String baseUrl}) = _ApiService;
+
+  //Service getApi();
 
   static const String API_AUTHENTICATE_DEVICE =
       "device/authenticate"; //Authenticate Device
@@ -32,47 +37,96 @@ abstract class ApiService {
   @FormUrlEncoded()
   @POST(API_AUTHENTICATE_DEVICE)
   Future<AuthenticationResponse> authenticateDevice(
-    @Headers() Map<String, String> headers,
-    @Body() Map<String, String> fields,
-  );
+      @Headers() Map<String, String> headers,
+      @Body() Map<String, String> fields,);
 
   @FormUrlEncoded()
   @POST(API_GET_SPINNER_DATA)
   Future<SpinnerDataResponse> getSpinnerData(
-    @Headers() Map<String, String> headers,
-    @Body() Map<String, String> fields,
-  );
+      @Headers() Map<String, String> headers,
+      @Body() Map<String, String> fields,);
 
   @FormUrlEncoded()
   @POST(API_SAVE_SPIN_PRIZE)
   Future<SaveSpinPrizeResponse> saveSpinPrize(
-    @Headers() Map<String, String> headers,
-    @Body() Map<String, String> fields,
-  );
+      @Headers() Map<String, String> headers,
+      @Body() Map<String, String> fields,);
 
   @FormUrlEncoded()
   @POST(API_TRANSACTION_UPDATE)
   Future<UpdateTransactionResponse> updateTransaction(
-    @Headers() Map<String, String> headers,
-    @Body() Map<String, String> fields,
-  );
+      @Headers() Map<String, String> headers,
+      @Body() Map<String, String> fields,);
 
   @FormUrlEncoded()
   @POST(API_SAVE_DRAWS)
   Future<SaveSelectedDrawsResponse> saveDraws(
-    @Headers() Map<String, String> headers,
-    @Body() Map<String, String> fields,
-  );
+      @Headers() Map<String, String> headers,
+      @Body() Map<String, String> fields,);
 
   @FormUrlEncoded()
   @POST(API_GET_TRANSACTION)
   Future<TransactionResponse> getTransaction(
-    @Headers() Map<String, String> headers,
-  );
+      @Headers() Map<String, String> headers,);
 
   @FormUrlEncoded()
   @POST(API_GET_APP_TEXTS)
-  Future<AppTextsResponse> getAppTexts(
-    @Headers() Map<String, String> headers,
-  );
+  Future<AppTextsResponse> getAppTexts(@Headers() Map<String, String> headers,);
+
 }
+
+/*
+class Api implements ApiService {
+
+  //Api();
+
+  @override
+  Service getApi() => Service();
+
+
+  Future<AuthenticationResponse> a(Map<String, String> headers,
+      Map<String, String> fields){
+    return authenticateDevice(headers, fields);
+  }
+  @override
+  Future<AuthenticationResponse> authenticateDevice(Map<String, String> headers,
+      Map<String, String> fields) {
+    return Api().authenticateDevice(headers, fields);
+  }
+
+  @override
+  Future<AppTextsResponse> getAppTexts(Map<String, String> headers) {
+    return ApiService().getAppTexts(headers);
+  }
+
+  @override
+  Future<SpinnerDataResponse> getSpinnerData(Map<String, String> headers,
+      Map<String, String> fields) {
+    return Api().getSpinnerData(headers,fields);
+  }
+
+  @override
+  Future<TransactionResponse> getTransaction(Map<String, String> headers) {
+    return Api().getTransaction(headers);
+  }
+
+  @override
+  Future<SaveSelectedDrawsResponse> saveDraws(Map<String, String> headers,
+      Map<String, String> fields) {
+    return Api().saveDraws(headers,fields);
+  }
+
+  @override
+  Future<SaveSpinPrizeResponse> saveSpinPrize(Map<String, String> headers,
+      Map<String, String> fields) {
+    return Api().saveSpinPrize(headers,fields);
+  }
+
+  @override
+  Future<UpdateTransactionResponse> updateTransaction(
+      Map<String, String> headers, Map<String, String> fields) {
+    return Api().updateTransaction(headers,fields);
+  }
+
+}
+*/

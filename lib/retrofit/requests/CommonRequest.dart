@@ -6,8 +6,21 @@ import 'package:kiosk_app/local/LocalStorage.dart';
 class CommonRequest {
   HashMap<String, String> headerFields = HashMap();
   HashMap<String, String> bodyFields = HashMap();
+  bool shouldInitHeaders = true;
 
-  factory CommonRequest({bool shouldInitHeaders = true}) {
+
+  CommonRequest(this.shouldInitHeaders) {
+    if (shouldInitHeaders) {
+      headerFields[_DEVICE_ID] =
+          Device.mDeviceInfo[Device.device].toString();
+      headerFields[AUTH_TOKEN] = LocalStorage().getAuthToken();
+      headerFields[TRANSACTION_PUBLIC_ID] =
+          LocalStorage().getTransactionId();
+    }
+  }
+
+
+  /*factory CommonRequest({bool shouldInitHeaders = true}) {
     CommonRequest cr = CommonRequest();
     if (shouldInitHeaders) {
       cr.headerFields[_DEVICE_ID] =
@@ -17,7 +30,7 @@ class CommonRequest {
           LocalStorage().getTransactionId();
     }
     return cr;
-  }
+  }*/
 
   static const _DEVICE_ID = "device-id";
   static const AUTH_TOKEN = "auth-token";

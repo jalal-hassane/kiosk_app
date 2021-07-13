@@ -19,4 +19,6 @@ class AppColors {
   static const Color gradientStartColor = Color(0xffffcb00);
   static const Color gradientMidColor = Color(0xffffc900);
   static const Color gradientEndColor = Color(0xfffda748);
+
+  static const Color black70Opacity = Color(0xb3000000);
 }

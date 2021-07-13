@@ -16,6 +16,14 @@ class UpdateTransactionResponse extends CommonResponse {
   Transaction? getTransaction() {
     return payload?.transaction;
   }
+
+  UpdateTransactionResponse fromJson(Map<String, dynamic> json) {
+    return _$UpdateTransactionResponseFromJson(json);
+  }
+
+  Map<String, dynamic> toJson1(UpdateTransactionResponse instance) {
+    return _$UpdateTransactionResponseToJson(instance);
+  }
 }
 
 @JsonSerializable()

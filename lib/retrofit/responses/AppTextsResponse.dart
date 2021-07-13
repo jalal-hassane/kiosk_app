@@ -12,6 +12,14 @@ class AppTextsResponse extends CommonResponse {
   Text? getAppText() {
     return payload?.appText;
   }
+
+  AppTextsResponse fromJson(Map<String, dynamic> json) {
+    return _$AppTextsResponseFromJson(json);
+  }
+
+  Map<String, dynamic> toJson1(AppTextsResponse instance) {
+    return _$AppTextsResponseToJson(instance);
+  }
 }
 
 @JsonSerializable()

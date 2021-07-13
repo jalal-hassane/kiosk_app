@@ -10,6 +10,14 @@ class AuthenticationResponse extends CommonResponse {
   String? getAuthToken() {
     return payload?.authToken;
   }
+
+  AuthenticationResponse fromJson(Map<String, dynamic> json) {
+    return _$AuthenticationResponseFromJson(json);
+  }
+
+  Map<String, dynamic> toJson1(AuthenticationResponse instance) {
+    return _$AuthenticationResponseToJson(instance);
+  }
 }
 
 @JsonSerializable()

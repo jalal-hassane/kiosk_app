@@ -7,6 +7,14 @@ part 'SaveSpinPrizeResponse.g.dart';
 class SaveSpinPrizeResponse extends CommonResponse {
   @JsonKey(name: "payload")
   Payload? payload;
+
+  SaveSpinPrizeResponse fromJson(Map<String, dynamic> json) {
+    return _$SaveSpinPrizeResponseFromJson(json);
+  }
+
+  Map<String, dynamic> toJson1(SaveSpinPrizeResponse instance) {
+    return _$SaveSpinPrizeResponseToJson(instance);
+  }
 }
 
 @JsonSerializable()

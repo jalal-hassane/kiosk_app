@@ -1,4 +1,5 @@
 class Strings {
+  static const String deviceId = "Device ID";
   static const String homeStartSpin = "Start the spin and win exciting offer";
   static const String touchToStart =
       "Please go to the booth nearby to be able to enter in the draw and win valuable prizes.";
@@ -9,6 +10,7 @@ class Strings {
   static const String emailAddress = "Email Address";
   static const String mandatoryHint = "*Mandatory fields";
   static const String go = "GO";
+  static const String authenticate = "Authenticate";
   static const String proceed = "PROCEED";
   static const String back = "Back";
 
