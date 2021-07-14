@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 import '../custom/MyAssets.dart';
 import '../custom/MyColors.dart';
@@ -109,6 +110,14 @@ class _PageReward extends State<PageReward> with TickerProviderStateMixin {
           ),
           child: Stack(
             children: [
+              AbsorbPointer(
+                absorbing: false,
+                child: Container(
+                  child: Lottie.asset(MyAssets.lottieFireworks,
+                    repeat: true,
+                  ),
+                ),
+              ),
               Container(
                 color: Colors.transparent,
                 child: Triangles(),
@@ -116,7 +125,7 @@ class _PageReward extends State<PageReward> with TickerProviderStateMixin {
                 width: screenWidth,
               ),
               Container(
-                color: Colors.yellow[200],
+                //color: Colors.yellow[200],
                 child: Center(
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
@@ -126,7 +135,7 @@ class _PageReward extends State<PageReward> with TickerProviderStateMixin {
                           margin: EdgeInsets.only(
                             top: screenHeight * 0.03,
                           ),
-                          color: Colors.red,
+                          //color: Colors.red,
                           height: 35,
                           width: screenWidth * 0.92,
                           child: TopLayout(
@@ -228,7 +237,7 @@ class _PageReward extends State<PageReward> with TickerProviderStateMixin {
                       Flexible(
                         flex: 5,
                         child: Container(
-                          color: Colors.lime,
+                          //color: Colors.lime,
                           child: Transform.scale(
                             scale: _controller.value,
                             child: Column(
@@ -275,7 +284,9 @@ class _PageReward extends State<PageReward> with TickerProviderStateMixin {
                   ),
                 ),
               ),
+
             ],
+
           ),
         ),
       ),

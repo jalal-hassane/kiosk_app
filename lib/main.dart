@@ -344,8 +344,10 @@ class _MyHomePageState extends State<PageHome> {
   void authenticateDevice() {
     String id = mDevice['identifier'].toString();
     print("My device id is $id");
-    //commo
-    final dio = Dio();
+    setState(() {
+      _isAuthenticationPopupVisible = false;
+    });
+    /*final dio = Dio();
     final op = Options();
     final client = ApiService(dio);
     print("Client $client");
@@ -355,6 +357,6 @@ class _MyHomePageState extends State<PageHome> {
     print("Common $commonReq");
     client.authenticateDevice(op, commonReq.bodyFields).then((it) =>
        print("Response $it")
-    );
+    );*/
   }
 }

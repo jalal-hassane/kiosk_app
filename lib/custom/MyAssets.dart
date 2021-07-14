@@ -52,4 +52,7 @@ class MyAssets {
   static const backgroundPrize1 = 'assets/images/im_result_background_1.png';
   static const backgroundPrize2 = 'assets/images/im_result_background_2.png';
   static const youWonBanner = 'assets/images/im_you_won_banner.png';
+
+  // Lottie
+  static const lottieFireworks = 'assets/lottie/lottie_fireworks_done.json';
 }

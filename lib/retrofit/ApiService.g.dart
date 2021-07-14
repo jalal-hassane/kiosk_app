@@ -16,138 +16,181 @@ class _ApiService implements ApiService {
   String? baseUrl;
 
   @override
-  Future<AuthenticationResponse> authenticateDevice(headers, fields) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _data = <String, dynamic>{};
+  Future<AuthenticationResponse> authenticateDevice(options, fields) async {
+    const _extra = <String, String>{};
+    final queryParameters = <String, String>{};
+    final _data = <String, String>{};
     _data.addAll(fields);
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<AuthenticationResponse>(Options(
-                method: 'POST',
-                headers: <String, dynamic>{},
-                extra: _extra,
-                contentType: 'application/x-www-form-urlencoded')
-            .compose(_dio.options, 'device/authenticate',
-                queryParameters: queryParameters, data: _data)
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final newOptions = newRequestOptions(options);
+    newOptions.extra.addAll(_extra);
+    newOptions.headers.addAll(_dio.options.headers);
+    newOptions.headers.addAll(<String, String>{});
+    print("fields $fields");
+
+    print("options ${options.headers}");
+    final _result = await _dio.fetch<Map<String, String>>(newOptions.copyWith(
+        method: 'POST',
+        contentType: 'application/x-www-form-urlencoded',
+        baseUrl: baseUrl ?? _dio.options.baseUrl,
+        queryParameters: queryParameters,
+        path: 'device/authenticate')
+      ..data = _data);
+    print("options ${options.headers}");
     final value = AuthenticationResponse().fromJson(_result.data!);
     return value;
   }
 
   @override
-  Future<SpinnerDataResponse> getSpinnerData(headers, fields) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _data = <String, dynamic>{};
+  Future<SpinnerDataResponse> getSpinnerData(options, fields) async {
+    const _extra = <String, String>{};
+    final queryParameters = <String, String>{};
+    final _data = <String, String>{};
     _data.addAll(fields);
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<SpinnerDataResponse>(Options(
-                method: 'POST',
-                headers: <String, dynamic>{},
-                extra: _extra,
-                contentType: 'application/x-www-form-urlencoded')
-            .compose(_dio.options, 'spinner/items',
-                queryParameters: queryParameters, data: _data)
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final newOptions = newRequestOptions(options);
+    newOptions.extra.addAll(_extra);
+    newOptions.headers.addAll(_dio.options.headers);
+    newOptions.headers.addAll(<String, String>{});
+    final _result = await _dio.fetch<Map<String, String>>(newOptions.copyWith(
+        method: 'POST',
+        contentType: 'application/x-www-form-urlencoded',
+        baseUrl: baseUrl ?? _dio.options.baseUrl,
+        queryParameters: queryParameters,
+        path: 'spinner/items')
+      ..data = _data);
     final value = SpinnerDataResponse().fromJson(_result.data!);
     return value;
   }
 
   @override
-  Future<SaveSpinPrizeResponse> saveSpinPrize(headers, fields) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _data = <String, dynamic>{};
+  Future<SaveSpinPrizeResponse> saveSpinPrize(options, fields) async {
+    const _extra = <String, String>{};
+    final queryParameters = <String, String>{};
+    final _data = <String, String>{};
     _data.addAll(fields);
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<SaveSpinPrizeResponse>(Options(
-                method: 'POST',
-                headers: <String, dynamic>{},
-                extra: _extra,
-                contentType: 'application/x-www-form-urlencoded')
-            .compose(_dio.options, 'spinner/set_winner',
-                queryParameters: queryParameters, data: _data)
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final newOptions = newRequestOptions(options);
+    newOptions.extra.addAll(_extra);
+    newOptions.headers.addAll(_dio.options.headers);
+    newOptions.headers.addAll(<String, String>{});
+    final _result = await _dio.fetch<Map<String, String>>(newOptions.copyWith(
+        method: 'POST',
+        contentType: 'application/x-www-form-urlencoded',
+        baseUrl: baseUrl ?? _dio.options.baseUrl,
+        queryParameters: queryParameters,
+        path: 'spinner/set_winner')
+      ..data = _data);
     final value = SaveSpinPrizeResponse().fromJson(_result.data!);
     return value;
   }
 
   @override
-  Future<UpdateTransactionResponse> updateTransaction(headers, fields) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _data = <String, dynamic>{};
+  Future<UpdateTransactionResponse> updateTransaction(options, fields) async {
+    const _extra = <String, String>{};
+    final queryParameters = <String, String>{};
+    final _data = <String, String>{};
     _data.addAll(fields);
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<UpdateTransactionResponse>(Options(
-                method: 'POST',
-                headers: <String, dynamic>{},
-                extra: _extra,
-                contentType: 'application/x-www-form-urlencoded')
-            .compose(_dio.options, 'transaction/update',
-                queryParameters: queryParameters, data: _data)
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final newOptions = newRequestOptions(options);
+    newOptions.extra.addAll(_extra);
+    newOptions.headers.addAll(_dio.options.headers);
+    newOptions.headers.addAll(<String, String>{});
+    final _result = await _dio.fetch<Map<String, String>>(newOptions.copyWith(
+        method: 'POST',
+        contentType: 'application/x-www-form-urlencoded',
+        baseUrl: baseUrl ?? _dio.options.baseUrl,
+        queryParameters: queryParameters,
+        path: 'transaction/update')
+      ..data = _data);
     final value = UpdateTransactionResponse().fromJson(_result.data!);
     return value;
   }
 
   @override
-  Future<SaveSelectedDrawsResponse> saveDraws(headers, fields) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _data = <String, dynamic>{};
+  Future<SaveSelectedDrawsResponse> saveDraws(options, fields) async {
+    const _extra = <String, String>{};
+    final queryParameters = <String, String>{};
+    final _data = <String, String>{};
     _data.addAll(fields);
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<SaveSelectedDrawsResponse>(Options(
-                method: 'POST',
-                headers: <String, dynamic>{},
-                extra: _extra,
-                contentType: 'application/x-www-form-urlencoded')
-            .compose(_dio.options, 'transaction/save-draws',
-                queryParameters: queryParameters, data: _data)
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final newOptions = newRequestOptions(options);
+    newOptions.extra.addAll(_extra);
+    newOptions.headers.addAll(_dio.options.headers);
+    newOptions.headers.addAll(<String, String>{});
+    final _result = await _dio.fetch<Map<String, String>>(newOptions.copyWith(
+        method: 'POST',
+        contentType: 'application/x-www-form-urlencoded',
+        baseUrl: baseUrl ?? _dio.options.baseUrl,
+        queryParameters: queryParameters,
+        path: 'transaction/save-draws')
+      ..data = _data);
     final value = SaveSelectedDrawsResponse().fromJson(_result.data!);
     return value;
   }
 
   @override
-  Future<TransactionResponse> getTransaction(headers) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<TransactionResponse>(Options(
-                method: 'POST',
-                headers: <String, dynamic>{},
-                extra: _extra,
-                contentType: 'application/x-www-form-urlencoded')
-            .compose(_dio.options, 'transaction/get-transaction',
-                queryParameters: queryParameters, data: _data)
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+  Future<TransactionResponse> getTransaction(options) async {
+    const _extra = <String, String>{};
+    final queryParameters = <String, String>{};
+    final _data = <String, String>{};
+    final newOptions = newRequestOptions(options);
+    newOptions.extra.addAll(_extra);
+    newOptions.headers.addAll(_dio.options.headers);
+    newOptions.headers.addAll(<String, String>{});
+    final _result = await _dio.fetch<Map<String, String>>(newOptions.copyWith(
+        method: 'POST',
+        contentType: 'application/x-www-form-urlencoded',
+        baseUrl: baseUrl ?? _dio.options.baseUrl,
+        queryParameters: queryParameters,
+        path: 'transaction/get-transaction')
+      ..data = _data);
     final value = TransactionResponse().fromJson(_result.data!);
     return value;
   }
 
   @override
-  Future<AppTextsResponse> getAppTexts(headers) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<AppTextsResponse>(Options(
-                method: 'POST',
-                headers: <String, dynamic>{},
-                extra: _extra,
-                contentType: 'application/x-www-form-urlencoded')
-            .compose(_dio.options, 'device/app-text',
-                queryParameters: queryParameters, data: _data)
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+  Future<AppTextsResponse> getAppTexts(options) async {
+    const _extra = <String, String>{};
+    final queryParameters = <String, String>{};
+    final _data = <String, String>{};
+    final newOptions = newRequestOptions(options);
+    newOptions.extra.addAll(_extra);
+    newOptions.headers.addAll(_dio.options.headers);
+    newOptions.headers.addAll(<String, String>{});
+    final _result = await _dio.fetch<Map<String, String>>(newOptions.copyWith(
+        method: 'POST',
+        contentType: 'application/x-www-form-urlencoded',
+        baseUrl: baseUrl ?? _dio.options.baseUrl,
+        queryParameters: queryParameters,
+        path: 'device/app-text')
+      ..data = _data);
     final value = AppTextsResponse().fromJson(_result.data!);
     return value;
   }
 
+  RequestOptions newRequestOptions(Options? options) {
+    if (options is RequestOptions) {
+      return options as RequestOptions;
+    }
+    if (options == null) {
+      return RequestOptions(path: '');
+    }
+    return RequestOptions(
+      method: options.method,
+      sendTimeout: options.sendTimeout,
+      receiveTimeout: options.receiveTimeout,
+      extra: options.extra,
+      headers: options.headers,
+      responseType: options.responseType,
+      contentType: options.contentType.toString(),
+      validateStatus: options.validateStatus,
+      receiveDataWhenStatusError: options.receiveDataWhenStatusError,
+      followRedirects: options.followRedirects,
+      maxRedirects: options.maxRedirects,
+      requestEncoder: options.requestEncoder,
+      responseDecoder: options.responseDecoder,
+      path: '',
+    );
+  }
+
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
-    if (T != dynamic &&
+    if (T != String &&
         !(requestOptions.responseType == ResponseType.bytes ||
             requestOptions.responseType == ResponseType.stream)) {
       if (T == String) {
