@@ -8,17 +8,25 @@ class CommonRequest {
   HashMap<String, String> bodyFields = HashMap();
   bool shouldInitHeaders = true;
 
-
   CommonRequest(this.shouldInitHeaders) {
     if (shouldInitHeaders) {
-      headerFields[_DEVICE_ID] =
-          Device.mDeviceInfo[Device.device].toString();
+      headerFields[_DEVICE_ID] = Device.mDeviceInfo[Device.device].toString();
       headerFields[AUTH_TOKEN] = LocalStorage().getAuthToken();
-      headerFields[TRANSACTION_PUBLIC_ID] =
-          LocalStorage().getTransactionId();
+      headerFields[TRANSACTION_PUBLIC_ID] = LocalStorage().getTransactionId();
     }
-  }
+    headerFields[_DEVICE_ID] = "asdasd";
+    headerFields[DEVICE_TYPE] = "android";
 
+    headerFields[AUTH_TOKEN] = "";
+
+    headerFields[APP_VERSION] = "1";
+    headerFields[ANDROID_ID] = "asdasdasdasdas";
+
+    headerFields[API_TOKEN] = "";
+    headerFields[CURRENT_DT] = "";
+    headerFields[IS_ROOTED] = "false";
+    headerFields[IS_EMULATOR] = "false";
+  }
 
   /*factory CommonRequest({bool shouldInitHeaders = true}) {
     CommonRequest cr = CommonRequest();
@@ -35,6 +43,15 @@ class CommonRequest {
   static const _DEVICE_ID = "device-id";
   static const AUTH_TOKEN = "auth-token";
   static const TRANSACTION_PUBLIC_ID = "trans-id";
+
+  static const DEVICE_TYPE = "device-type";
+  static const APP_VERSION = "app-version";
+  static const DEVICE_TYPE_ANDROID = "android";
+  static const CURRENT_DT = "current-dt";
+  static const IS_ROOTED = "is-rooted";
+  static const IS_EMULATOR = "is-emulator";
+  static const ANDROID_ID = "android-id";
+  static const API_TOKEN = "api-token";
 
   /// authenticate
   static const DEVICE_ID = "device_id";
