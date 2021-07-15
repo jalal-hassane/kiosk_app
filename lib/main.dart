@@ -1,11 +1,11 @@
 import 'dart:collection';
 import 'dart:ui';
-
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:intl/intl.dart';
 import 'package:kiosk_app/Device.dart';
 import 'package:kiosk_app/custom/MyAssets.dart';
 import 'package:kiosk_app/custom/MyColors.dart';
@@ -23,9 +23,13 @@ import 'package:kiosk_app/ui/PageSpinner.dart';
 import 'package:retrofit/dio.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:dio/dio.dart';
+import 'package:encrypt/encrypt.dart' as Encrypt;
+import 'package:logger/logger.dart';
 
 import 'custom/MyCustomChild.dart';
 import 'ui/PageReward.dart';
+
+final logger =Logger();
 
 void main() {
   LocalStorage();
@@ -360,17 +364,53 @@ class _MyHomePageState extends State<PageHome> {
     client.authenticateDevice(op, commonReq.bodyFields).then((it) =>
        print("Response $it")
     );*/
+
+
+
+
+
+    //DateFormat("yyyy-MM-dd'T'HH:mm:ss");
+
+    var formatter = DateFormat("yyyy-MM-dd'T'HH:mm:ss");
+    var formattedDate = formatter.format(DateTime.now());
+    var fd1 = formatter.format(DateTime.now());
+
+
+    logger.i("Current date " + formattedDate);
+    logger.i("Current date " + fd1);
+
+
+    final plainText = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit';
+
+    final key = Encrypt.Key.fromUtf8('FJbTbUN91xzVdTOFFJbTbUN91xzVdTOF');
+    final iv = Encrypt.IV.fromLength(16);
+    //final b64key = Encrypt.Key.fromUtf8(Encrypt.base64Url.encode(key.bytes));
+
+    final encryptor = Encrypt.Encrypter(Encrypt.AES(key));
+
+    final commonReq = CommonRequest(false);
+    final encrypted = encryptor.encrypt(commonReq.headerFields.toString(), iv: iv);
+    final decrypted = encryptor.decrypt(encrypted, iv: iv);
+
+    logger.i("Decrypted " + decrypted); // Lorem ipsum dolor sit amet, consectetur adipiscing elit
+    logger.i("Encrypted64 " +encrypted.base64);
+
+
     final dio = Dio();
     final op = Options();
     final client = NumfeedApiService(dio);
     print("Client $client");
-    final commonReq = CommonRequest(false);
+
+    commonReq.headerFields[CommonRequest.HEADERS_DATA] = encrypted.base64;
     op.headers = commonReq.headerFields;
-    commonReq.bodyFields[CommonRequest.DEVICE_ID] = id;
-    commonReq.bodyFields[CommonRequest.DEVICE_ID] = id;
+
+    //headerFields[CURRENT_DT] = dateString
     print("Common ${commonReq.headerFields}");
     client.getAppSettings(op).then((it) =>
-        print("${it.isSuccess} Texts: ${it.appTexts}\nSettings: ${it.appSettings}\tTutorials: ${it.tutorialsList}")
+        logger.wtf("${it.isSuccess} ${it.payloadData}")
     );
+
   }
+
+
 }

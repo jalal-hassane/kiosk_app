@@ -1,7 +1,11 @@
 import 'dart:collection';
 
+import 'package:intl/intl.dart';
 import 'package:kiosk_app/Device.dart';
 import 'package:kiosk_app/local/LocalStorage.dart';
+import 'dart:convert';
+import 'package:crypto/crypto.dart';
+
 
 class CommonRequest {
   HashMap<String, String> headerFields = HashMap();
@@ -19,15 +23,23 @@ class CommonRequest {
 
     headerFields[AUTH_TOKEN] = "";
 
-    headerFields[APP_VERSION] = "1";
+    headerFields[APP_VERSION] = "109";
     headerFields[ANDROID_ID] = "asdasdasdasdas";
 
     headerFields[API_TOKEN] = "";
     headerFields[CURRENT_DT] = "";
     headerFields[IS_ROOTED] = "false";
     headerFields[IS_EMULATOR] = "false";
+
+    prepareToken();
   }
 
+  void prepareToken(){
+    var formatter = DateFormat("yyyy-MM-dd'T'HH:mm:ss");
+    var formattedDate = formatter.format(DateTime.now());
+    headerFields[CURRENT_DT] = formattedDate;
+    headerFields[API_TOKEN] = generateMd5(API_KEY + formattedDate + "asdasd");
+  }
   /*factory CommonRequest({bool shouldInitHeaders = true}) {
     CommonRequest cr = CommonRequest();
     if (shouldInitHeaders) {
@@ -39,6 +51,10 @@ class CommonRequest {
     }
     return cr;
   }*/
+
+  String generateMd5(String input) {
+    return md5.convert(utf8.encode(input)).toString();
+  }
 
   static const _DEVICE_ID = "device-id";
   static const AUTH_TOKEN = "auth-token";
@@ -67,4 +83,9 @@ class CommonRequest {
   static const NAME = "name";
   static const EMAIL = "email";
   static const MOBILE = "mobile";
+
+  static const API_KEY ="2e8173243c94dd28abb81d276494505ee5e2e32355f11bc425ace596dafd6e4a";
+  static const FERNET_KEY = "FJbTbUN91xzVdTOFmKB3ZgL_ZArJNEqhtbapBW9R_r5=";
+  static const HEADERS_DATA = "headers-data";
+  static const POST_DATA = "post_data";
 }

@@ -1,6 +1,9 @@
+import 'package:kiosk_app/retrofit/numfeed/NumfeedCommonResponse.dart';
+import 'package:logger/logger.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
 import 'AppSettingsResponse.dart';
+import 'package:encrypt/encrypt.dart' as Encrypt;
 
 
 part 'NumfeedApiService.g.dart';
@@ -19,7 +22,7 @@ abstract class NumfeedApiService {
 
   @FormUrlEncoded()
   @POST(GET_APP_SETTINGS)
-  Future<AppSettingsResponse> getAppSettings(
+  Future<NumfeedCommonResponse> getAppSettings(
       @DioOptions() Options options,
       );
 

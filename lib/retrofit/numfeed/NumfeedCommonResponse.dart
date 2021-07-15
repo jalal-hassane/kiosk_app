@@ -14,6 +14,8 @@ class NumfeedCommonResponse {
   @JsonKey(name: 'dev_message')
   String? devMessage;
 
+  @JsonKey(name:"payload")
+  String? payloadData;
 
 
   String getMessage() {
